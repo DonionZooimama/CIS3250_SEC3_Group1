@@ -4,4 +4,4 @@
 yeet
 
 
-dan - update score, play again
+ronnie - printarrayvalue & arrInitialization
