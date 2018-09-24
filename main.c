@@ -22,6 +22,7 @@ int restorePlace = 0 , scoreOne = 0 , scoreTwo = 0 , gameOut = 0;
 int HighScoreList[50]= {0} , listLength = 0;
 
 
+//Ronnie
 void arrInitialization(int Height , int Width) 
 
 
@@ -36,6 +37,8 @@ void arrInitialization(int Height , int Width)
         }
     }
 } 
+
+//Derek
 void saveGame()
 {
     int counter ,counter2;
@@ -95,6 +98,7 @@ if (numberOfPlay % 2 == 0)
     }
 }
 
+//Derek
 void HighScoresList(int flag)
 {
     int counter , counter1 , temp;
@@ -144,7 +148,7 @@ HighScoreList[listLength]=scoreOne;
 
 void ReadXML();
 
-
+//Aiji
 void loadGame()
 {
     int counter , counter1  , flag = 0 ,counterX = 0 , counterO = 0;
@@ -215,6 +219,7 @@ void loadGame()
     }
 }
 
+//Ronnie
 void PrintArrayValue(int Height , int Width) 
 {
     int counter1 , counter2 ; 
@@ -284,6 +289,7 @@ void PrintArrayValue(int Height , int Width)
     printf("\n(S) to save\n",BLUE);
 }
 
+//Daniel
 void updateScore(int row , int col)
 {
     int flag = 0 , score = 0;
@@ -395,12 +401,14 @@ void updateScore(int row , int col)
 void player (char numberOfcol , int numberOfPlay);
 void computerPlayer();
 
+//Daniel
 void playAgain()
 {
     printf("\n\t>>this move isn't valid \n\n >>do another move<< ",RED);
     scanf("%s",playerInput);
     player( playerInput , numberOfPlay);
 }
+//Wil
 void Undo()
 {
     int counter = 0 , flag = 0 , noOfCol;
@@ -454,6 +462,8 @@ void Undo()
         player(playerInput , numberOfPlay);
     }
 } 
+
+//Aiji
 void Redo()
 {
     int counter = 0 , flag = 0 , noOfCol;
@@ -502,6 +512,8 @@ void Redo()
         player(playerInput , numberOfPlay);
     }
 } 
+
+//Wil
 void computerPlayer()
 {
     int row , randomPlay ; 
@@ -537,7 +549,7 @@ void computerPlayer()
     }
 }
 
-
+//Jordan
 void player(char numberOfCol , int numberOfPlay) 
 {
     int row; 
@@ -624,6 +636,7 @@ if(arr[Height-row-1][numberOfCol-1]== 'X' || arr[Height-row-1][numberOfCol-1] ==
     }
 }
 
+//Jordan
 void ReadXML()
 {
     char str[555];
