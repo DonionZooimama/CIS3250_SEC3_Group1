@@ -1,3 +1,9 @@
+/*
+ * Remove Windows-dependant coloured text.
+ * Add Comments to divide up code to refactor
+ * Load save input from command line.
+ */
+
 #include<stdio.h>
 #include<strings.h>
 #include <windows.h>
