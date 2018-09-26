@@ -1,10 +1,21 @@
 #include<stdio.h>
 #include<strings.h>
+/*
 #include <windows.h>
 #define BLUE SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE )
 #define RED SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED)
 #define INTENSITY SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY)
 #define GREEN SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN)
+*/
+
+#define KNRM  "\x1B[0m"
+#define RED  "\x1B[31m"
+#define GREEN  "\x1B[32m"
+#define INTENSITY  "\x1B[33m"
+#define BLUE  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
 
 char arr[100][100];
 char arrSaveAction[100]= {0}; 
@@ -17,10 +28,7 @@ int HighScoreList[50]= {0} , listLength = 0;
 
 
 void arrInitialization(int Height , int Width) 
-
-
-
-      {
+{
     int counter1 , counter2 ; 
     for (counter1 = 0 ; counter1 < Height ; counter1++)
     {
@@ -29,7 +37,8 @@ void arrInitialization(int Height , int Width)
             arr[counter1][counter2] = '-' ;
         }
     }
-} 
+}
+
 void saveGame()
 {
     int counter ,counter2;
@@ -49,7 +58,7 @@ void saveGame()
        
 	   
 	    {
-for(counter2 = 0 ; counter2 < Width ; counter2++)
+            for(counter2 = 0 ; counter2 < Width ; counter2++)
             {
                 fprintf(file,"%c ",arr[counter][counter2]);
             }
@@ -72,7 +81,7 @@ for(counter2 = 0 ; counter2 < Width ; counter2++)
     {
         system("cls");
         PrintArrayValue(Height,Width);
-if (numberOfPlay % 2 == 0)
+    if (numberOfPlay % 2 == 0)
         {
             printf("\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`",INTENSITY);
             printf("\tplayer2<<Enter your play>> = ",BLUE);
@@ -102,7 +111,7 @@ void HighScoresList(int flag)
         }
         fclose(file);
     }
-HighScoreList[listLength]=scoreOne;
+    HighScoreList[listLength]=scoreOne;
     HighScoreList[listLength+1]=scoreTwo;
     printf("The High Score List\n");
 
@@ -395,6 +404,7 @@ void playAgain()
     scanf("%s",playerInput);
     player( playerInput , numberOfPlay);
 }
+
 void Undo()
 {
     int counter = 0 , flag = 0 , noOfCol;
@@ -447,7 +457,8 @@ void Undo()
         scanf("%s",playerInput);
         player(playerInput , numberOfPlay);
     }
-} 
+}
+
 void Redo()
 {
     int counter = 0 , flag = 0 , noOfCol;
@@ -495,7 +506,8 @@ void Redo()
         scanf("%s",playerInput);
         player(playerInput , numberOfPlay);
     }
-} 
+}
+
 void computerPlayer()
 {
     int row , randomPlay ; 
@@ -530,7 +542,6 @@ void computerPlayer()
         }
     }
 }
-
 
 void player(char numberOfCol , int numberOfPlay) 
 {
@@ -575,7 +586,7 @@ void player(char numberOfCol , int numberOfPlay)
 
     for(row = 0 ; row < Height && flag == 0; row++)
     {
-if(arr[Height-row-1][numberOfCol-1]== 'X' || arr[Height-row-1][numberOfCol-1] == 'O')
+    if(arr[Height-row-1][numberOfCol-1]== 'X' || arr[Height-row-1][numberOfCol-1] == 'O')
         {
            
         }
@@ -627,8 +638,14 @@ void ReadXML()
     int counter, counter1 , counter3 ;
     int found = 0 , savePlace = 0 , colmun = 0 , row = 0, list = 0 , flag = 0;
 
+    printf("In XML parser\n");
     FILE * file = fopen( "data.xml" , "r");
-
+    if(!file) {
+        printf("Error opening data.xml\n");
+    }
+    else {
+        printf("data.xml opened successfully\n");
+    }
     while (fscanf(file, "%s", str)!=EOF && flag == 0)
     {
         counter = 0;
@@ -851,7 +868,6 @@ void ReadXML()
 int main()
 {
     int flag = 0;
-    
 
     char chose = 'C';
     char option ;
@@ -893,7 +909,7 @@ int main()
             system("cls");
             PrintArrayValue(Height , Width);
 
-if (numberOfPlay % 2 != 0)
+    if (numberOfPlay % 2 != 0)
     {
                 printf("\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8",INTENSITY);
                 printf("\t player1<<Enter your play>> = ",GREEN);
@@ -942,7 +958,7 @@ if (numberOfPlay % 2 != 0)
             HighScoresList(flag);
         }
         printf("\n\nYou Want To Continue Enter C else Enter any thing ");
-scanf("\n%s",&chose);
+    scanf("\n%s",&chose);
         system("cls");
     }
     return 0;
