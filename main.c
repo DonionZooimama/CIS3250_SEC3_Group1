@@ -10,10 +10,11 @@ char arr[100][100];
 char arrSaveAction[100]= {0}; 
 char arrRestorePlace[100]= {0}; 
 
-int Width , Height , Highscores , numberOfPlay , savePlace , numberOfCol ;
+//Change these variable names to be camelCase.  Remove global variables?
+int width , height , highScores , numberOfPlay , savePlace , numberOfCol ;
 char playerInput[20]  , whichPlayer ;
 int restorePlace = 0 , scoreOne = 0 , scoreTwo = 0 , gameOut = 0;
-int HighScoreList[50]= {0} , listLength = 0;
+int highScoreList[50]= {0} , listLength = 0;
 
 
 void arrInitialization(int Height , int Width) 
@@ -30,111 +31,164 @@ void arrInitialization(int Height , int Width)
         }
     }
 } 
-void saveGame()
+
+
+/**
+ * Sept 26, 2018
+ * Refactored by Derek Bowman
+ * 
+ * This function saves the state of the game
+ * No paramaters in
+ * Void return
+ * */
+void SaveGame()
 {
-    int counter ,counter2;
-    char chose , chose2;
-    printf("\nif you save the file you will delete the previous saving file",INTENSITY);
-    printf("\nif you want to continue >>enter Y << else >> enter N << ",INTENSITY);
-    scanf("%s",&chose);
+    int counter;
+    int counter2;
 
-    if (chose =='Y')
+    char chose;
+    char chose2;
+
+    //User input to confirm save
+    printf( "\nif you save the file you will delete the previous saving file", INTENSITY );
+    printf( "\nif you want to continue >>enter Y << else >> enter N << ", INTENSITY );
+    scanf( "%s", &chose );
+
+    if ( chose == 'Y' )
     {
-        FILE * file = fopen( "saveGame.txt" , "w");
-        fprintf(file,"%d %d %d %d",Width,Height,Highscores,numberOfPlay);
-        fprintf(file,"\n%d %d",scoreOne,scoreTwo);
-        fprintf(file,"\n%s\n",&whichPlayer);
+	//write variables about game state to file
+        FILE *file = fopen( "saveGame.txt" , "w" );
+        fprintf( file, "%d %d %d %d", width, height, highScores, numberOfPlay );
+        fprintf( file, "\n%d %d", scoreOne, scoreTwo );
+        fprintf( file, "\n%s\n", &whichPlayer );
 
-        for(counter = 0 ; counter < Height ; counter++)
-       
-	   
-	    {
-for(counter2 = 0 ; counter2 < Width ; counter2++)
+	//Loop over all positions on board and print a copy of the board from 2d array (arr)
+        for( counter = 0; counter < height; counter++ )
+	{
+            for( counter2 = 0; counter2 < width; counter2++ )
             {
-                fprintf(file,"%c ",arr[counter][counter2]);
+                fprintf( file, "%c ", arr[counter][counter2] );
             }
-            fprintf(file,"\n");
+            fprintf( file, "\n" );
         }
-        fclose(file);
-        printf("\nThe game has been saved if you want to continue playing in the a \n"
-               "same game >>Enter Y << else >> Enter N << ",BLUE);
-        scanf("%s",&chose2);
-        if (chose2 == 'Y')
+
+        fclose( file );
+
+	//Ask if user would like to then quit
+        printf( "\nThe game has been saved if you want to continue playing in the \n"
+               "same game >>Enter Y << else >> Enter N << ", BLUE );
+        scanf( "%s", &chose2 );
+
+        if ( chose2 != 'Y' )
         {
-           
-        }
-        else
-        {
-            gameOut = 1;
+           gameOut = 1;
         }
     }
-    if(chose == 'N' || chose2 == 'Y')
+
+    //If the player would like to continue playing
+    if( chose == 'N' || chose2 == 'Y' )
     {
-        system("cls");
-        PrintArrayValue(Height,Width);
-if (numberOfPlay % 2 == 0)
+	//clear screen (will need to fix to run on linux
+        system( "cls" );
+
+	//print board
+	PrintArrayValue( height, width );
+        
+	//get move (for either player 1 or 2)
+	if ( numberOfPlay % 2 == 0 )
         {
-            printf("\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`",INTENSITY);
-            printf("\tplayer2<<Enter your play>> = ",BLUE);
-            scanf("%s",playerInput);
-            player( playerInput , numberOfPlay);
+            printf( "\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`", INTENSITY );
+            printf( "\tplayer2<<Enter your play>> = ", BLUE );
+            scanf( "%s", playerInput );
+
+            Player( playerInput, numberOfPlay );
         }
         else
         {
-            printf("\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8",INTENSITY);
-            printf("\t player1<<Enter your play>> = ",GREEN);
-            scanf("%s",playerInput);
-            player(playerInput , numberOfPlay);
+            printf( "\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8", INTENSITY );
+            printf( "\t player1<<Enter your play>> = ", GREEN );
+            scanf( "%s", playerInput );
+            
+	    Player( playerInput, numberOfPlay );
         }
     }
 }
 
-void HighScoresList(int flag)
+
+/**
+ * Sept 26, 2018
+ * Refactored by Derek Bowman
+ * 
+ * HighScoresList has now been split into multiple functions.
+ * - ReadHighScoresFile:  Should be called during game boot
+ * - AddHighScores:  adds new highscores to the end of the list, then sorts the list
+ * - SaveHighScores: writes highscores list to file
+ * - PrintHighScores: prints highscores to screen
+ * */
+
+
+//Reads Highscores from file to array
+void ReadHighScoresFile()
 {
-    int counter , counter1 , temp;
-
-    if (flag == 0)
+    FILE *file = fopen( "Highscores.txt" , "r" );
+    while( fscanf( file, "%d", &highScoreList[listLength] ) != EOF )
     {
-        FILE * file = fopen( "Highscores.txt" , "r");
-        while(fscanf(file,"%d",&HighScoreList[listLength]) != EOF)
-        {
-            listLength++;
-        }
-        fclose(file);
+        listLength++;
     }
-HighScoreList[listLength]=scoreOne;
-    HighScoreList[listLength+1]=scoreTwo;
-    printf("The High Score List\n");
+    fclose( file );
+}
 
-    for (counter = 1 ; counter <= listLength+1 ; counter++)
+//Adds highscores then sorts the list
+void AddHighScores()
+{
+    int counter;
+
+    /*
+     * Design notes:
+     *  - Does not currently check to see if it's past the largest size of array
+     *  - Currently adds scoreOne and scoreTwo, then sorts. Should this be done 
+     *    differently /in seporate methods?
+     */
+
+    highScoreList[listLength] = scoreOne;
+    highScoreList[listLength+1] = scoreTwo;
+
+
+    for ( counter = 1 ; counter <= listLength+1 ; counter++ )
     {
-        counter1 = counter;
-        while ( counter1 > 0 && HighScoreList[counter1] > HighScoreList[counter1-1])
+        int counter1 = counter;
+        while ( counter1 > 0 && highScoreList[counter1] > highScoreList[counter1-1] )
         {
-            temp   = HighScoreList[counter1];
-            HighScoreList[counter1]   = HighScoreList[counter1-1];
-            HighScoreList[counter1-1] = temp;
+            int temp = highScoreList[counter1];
+            highScoreList[counter1] = highScoreList[counter1-1];
+            highScoreList[counter1-1] = temp;
             counter1--;
         }
     }
-    if (flag == 1)
+}
+
+//Print HighScores array to file
+void saveHighScoreList()
+{
+    FILE *file = fopen( "Highscores.txt", "w" );
+    for( counter=0 ; counter < highscores ; counter++ )
     {
-        FILE *file = fopen("Highscores.txt" , "w");
-        for(counter=0 ; counter < Highscores ; counter++)
-        {
-            fprintf(file,"%d\n",HighScoreList[counter]);
-            printf("\n%d",HighScoreList[counter]);
-        }
-        fclose(file);
+        fprintf( file, "%d\n", highScoreList[counter] );
     }
-    else
+    fclose( file );
+}
+
+//Print Highscores array to screen
+void PrintHighScoresList()
+{
+    printf( "The High Score List\n" );
+    for( counter = 0 ; counter < listLength ; counter++ )
     {
-        for(counter = 0 ; counter < listLength ; counter++)
-        {
-            printf("%d\n",HighScoreList[counter]);
-        }
+        printf( "%d\n", highScoreList[counter] );
     }
 }
+
+
 
 void ReadXML();
 
