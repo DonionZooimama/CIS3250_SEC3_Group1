@@ -12,7 +12,7 @@
 void arrInitialization(int Height , int Width);
 void saveGame();
 void HighScoresList(int flag);
-void ReadXML();
+void ReadXML(int Width, int Height, int Highscores);
 void loadGame();
 void PrintArrayValue(int Height , int Width);
 void updateScore(int row , int col);

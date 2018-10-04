@@ -1,7 +1,7 @@
 #include "header.h"
 
 //Jordan
-void ReadXML()
+void ReadXML(int Width, int Height, int Highscores)
 {
     char str[555];
     char str2[20][20];

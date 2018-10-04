@@ -3,19 +3,26 @@
 int main()
 {
 	char arr[100][100];
-	char arrSaveAction[100]= {0}; 
-	char arrRestorePlace[100]= {0}; 
-	char playerInput[20]  , whichPlayer ;
-
-	int Width , Height , Highscores , numberOfPlay , savePlace , numberOfCol ;
-	int restorePlace = 0 , scoreOne = 0 , scoreTwo = 0 , gameOut = 0;
-	int HighScoreList[50]= {0} , listLength = 0;
-	
-    int flag = 0;
-    
-
-    char chose = 'C';
+	char arrSaveAction[100] = {0}; 
+	char arrRestorePlace[100] = {0}; 
+	char playerInput[20];
+	char whichPlayer  = ' ';
+	char chose = 'C';
     char option ;
+
+	int Width = 0;
+	int Height = 0;
+	int Highscores = 0;
+	int numberOfPlay = 0;
+	int savePlace = 0;
+	int numberOfCol = 0;
+	int restorePlace = 0;
+	int scoreOne = 0;
+	int scoreTwo = 0;
+	int gameOut = 0;
+	int HighScoreList[50] = {0}
+	int listLength = 0;
+    int flag = 0;
 
     while (chose =='C')
     {
@@ -42,17 +49,16 @@ int main()
 
             numberOfPlay = 1;
             savePlace = 0 , restorePlace = 0 , scoreOne = 0 , scoreTwo = 0;
-            ReadXML();
-            arrInitialization(Height,Width);
+            ReadXML(Width, Height, Highscores);
+            arrInitialization(Height, Width);
         }
 
-        system("cls");
-        gameOut = 0;
+        system("cls");// apparently this clears the command promts screen for windows only. Should change this. ---Ajai Gill
 
-        while ( Width*Height >= numberOfPlay && gameOut != 1)
+        while ( Width * Height >= numberOfPlay && gameOut != 1)
         {
             system("cls");
-            PrintArrayValue(Height , Width);
+            PrintArrayValue(Height, Width);
 
 if (numberOfPlay % 2 != 0)
     {
