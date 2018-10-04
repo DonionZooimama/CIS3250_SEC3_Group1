@@ -1,7 +1,7 @@
 #include "header.h"
 
 //Jordan
-void ReadXML(int Width, int Height, int Highscores)
+void ReadXML(int *Width, int *Height, int *Highscores)
 {
     char str[555];
     char str2[20][20];
@@ -218,7 +218,7 @@ void ReadXML(int Width, int Height, int Highscores)
     if( colmun > 3  && colmun < 13 && row > 3 && row < 13
             && list >= 0 && list < 13)
     {
-        Width = colmun , Height = row , Highscores = list;
+        *Width = colmun , *Height = row , *Highscores = list;
     }
     else
     {
@@ -226,7 +226,7 @@ void ReadXML(int Width, int Height, int Highscores)
     }
     if (flag == 1)
     {
-        Width =  7  , Height =  6 , Highscores = 5;
+        *Width =  7  , *Height =  6 , *Highscores = 5;
     }
     return;
 }

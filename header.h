@@ -9,17 +9,28 @@
 #define INTENSITY SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY)
 #define GREEN SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN)
 
-void arrInitialization(int Height , int Width);
+void arrInitialization(int Height , int Width, char arr[100][100]);
+
 void saveGame();
-void HighScoresList(int flag);
-void ReadXML(int Width, int Height, int Highscores);
-void loadGame();
-void PrintArrayValue(int Height , int Width);
-void updateScore(int row , int col);
-void player (char numberOfcol , int numberOfPlay);
-void computerPlayer();
+
+void HighScoresList(int flag, int *HighScoreList, int *listLength, int *Highscores, int scoreOne, int scoreTwo);
+
+void ReadXML(int *Width, int *Height, int *Highscores);
+
+void loadGame(int *Width, int *Height, int *Highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, char *whichPlayer, int *savePlace, int *restorePlace, char arr[100][100]);
+
+void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, char arr[100][100]);
+
+void updateScore(int row , int col, int *Width, int *Height, int *numberOfPlay, int *scoreOne, int *scoreTwo, char *playerInput, char arr[100][100]);
+
+void player (char *numberOfCol , int *numberOfPlay, int *Height, char arr[100][100], char *arrSaveAction, int *savePlace, int *Width, int *restorePlace, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace);
+
+void computerPlayer(char arr[100][100], int *Height, int *Width, int *restorePlace, char *arrSaveAction, int *savePlace, int *scoreOne, int *scoreTwo);
+
 void playAgain();
-void Undo();
-void Redo();
+
+void Undo(int *savePlace, int *restorePlace, int *Height, int *Width, int *numberOfPlay, int *scoreOne, int *scoreTwo, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[100][100]);
+
+void Redo(int *restorePlace, int *Height, int *Width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *savePlace, char whichPlayer, char *playerInput, char *arrRestorePlace, char arr[100][100], char *arrSaveAction);
 
 #endif

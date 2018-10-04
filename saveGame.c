@@ -17,8 +17,6 @@ void saveGame()
         fprintf(file,"\n%s\n",&whichPlayer);
 
         for(counter = 0 ; counter < Height ; counter++)
-       
-	   
 	    {
 for(counter2 = 0 ; counter2 < Width ; counter2++)
             {
