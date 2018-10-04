@@ -16,20 +16,23 @@ int restorePlace = 0 , scoreOne = 0 , scoreTwo = 0 , gameOut = 0;
 int HighScoreList[50]= {0} , listLength = 0;
 
 
-void arrInitialization(int Height , int Width) 
-
-
-
-      {
-    int counter1 , counter2 ; 
-    for (counter1 = 0 ; counter1 < Height ; counter1++)
-    {
-        for(counter2 = 0 ; counter2 < Width ; counter2++)
-        {
-            arr[counter1][counter2] = '-' ;
+/**
+ *  Date: October 3, 2018 - Ronnie Tran
+ *  Creates an empty connect 4 board.
+ * @param height, the board's height
+ * @param width, the board's width
+ */
+void arrInitialization(int height, int width)
+{
+    int h, w;
+    for (h = 0; h < height; h++) {
+        for (w = 0; w < width; w++) {
+            // fills the board with '-' for the width and height
+            arr[h][w] = '-';
         }
     }
-} 
+}
+
 void saveGame()
 {
     int counter ,counter2;
