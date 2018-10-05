@@ -55,14 +55,14 @@ void loadGame(int *Width, int *Height, int *Highscores, int *numberOfPlay, int *
     }
     if (flag == 1)
     {
-        printf("\n\t >> Human vs. Human << \n OR \n\t >> Human vs. Computer <<\n",BLUE);
-        printf("\n>>Enter (H) if two player && (C) if one player\n",GREEN);
+        printf("\n\t >> Human vs. Human << \n OR \n\t >> Human vs. Computer <<\n");
+        printf("\n>>Enter (H) if two player && (C) if one player\n");
 
         scanf("%s",whichPlayer);
 
         while (*whichPlayer != 'H' && *whichPlayer != 'C')
         {
-            printf("\nsome thing error please enter again\n",RED);
+            printf("\nsome thing error please enter again\n");
             scanf("%s",whichPlayer);
         }
 		

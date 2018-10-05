@@ -1,7 +1,8 @@
 #include "header.h"
 
 //Wil
-void computerPlayer(char arr[100][100], int *Height, int *Width, int *restorePlace, char *arrSaveAction, int *savePlace, int *scoreOne, int *scoreTwo)
+void computerPlayer(char arr[100][100], int *Height, int *Width, int *restorePlace, char *arrSaveAction, int *savePlace, int *scoreOne, int *scoreTwo, int *numberOfPlay,
+					char *playerInput)
 {
     int row , randomPlay ; 
     int flag = 0; 
@@ -26,7 +27,7 @@ void computerPlayer(char arr[100][100], int *Height, int *Width, int *restorePla
                     arr[*Height-row-1][randomPlay] = 'O';
                     arrSaveAction[*savePlace] = (randomPlay);
                     *savePlace += 1;
-                    updateScore(*Height-row-1 , randomPlay);
+                    updateScore(*Height-row-1 , randomPlay, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
                     system("cls");
                     PrintArrayValue(Height, Width, scoreOne, scoreTwo, arr);
                     flag = 1;

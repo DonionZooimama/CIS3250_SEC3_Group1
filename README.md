@@ -2,9 +2,3 @@
 
 
 yeet
-
-
-dan - update score, play again
-
-
-Wil - Computer Player, undo

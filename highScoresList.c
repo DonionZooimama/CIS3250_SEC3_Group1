@@ -1,7 +1,7 @@
 #include "header.h"
 
 //Derek
-void HighscoresList(int flag, int *HighScoreList, int *listLength, int *Highscores, int scoreOne, int scoreTwo)
+void HighScoresList(int flag, int *HighScoreList, int *listLength, int *Highscores, int scoreOne, int scoreTwo)
 {
     int counter , counter1 , temp;
 

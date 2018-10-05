@@ -1,7 +1,7 @@
 All: updateScore undo saveGame redo readXML printArrayValue player playAgain loadGame highScoresList computerPlayer arrInitialization
 
 main: main.c header.h
-	gcc -Wall -pedantic -std=c11 main.c -o main.o
+	gcc -Wall -pedantic -std=c11 main.c  updateScore.o undo.o saveGame.o redo.o readXML.o printArrayValue.o player.o playAgain.o loadGame.o highScoresList.o computerPlayer.o arrInitialization.o -o main
 
 updateScore: updateScore.c header.h
 	gcc -Wall -pedantic -std=c11 -c updateScore.c -o updateScore.o
