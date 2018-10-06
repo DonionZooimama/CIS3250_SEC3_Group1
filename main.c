@@ -13,7 +13,7 @@ int main()
 	int Width = 0;
 	int Height = 0;
 	int Highscores = 0;
-	int numberOfPlay = 0;
+	int numberOfPlay = 1;
 	int savePlace = 0;
 	int restorePlace = 0;
 	int scoreOne = 0;
@@ -26,7 +26,7 @@ int main()
     while (chose =='C')
     {
         printf("\nIf You Want To Load The Saved Game >> Enter L <<Else Enter Any thing ");
-        scanf("%s",&option);
+        fgets(&option, 3, stdin);
 
         if (option == 'L')
         {
@@ -38,26 +38,19 @@ int main()
         {
             printf("\n\t >> Human vs. Human << \n OR \n\t >> Human vs. Computer <<\n");
             printf("\n>>Enter (H) if two player && (C) if one player\n");
-
-            scanf("%s",&whichPlayer);
+			fgets(&whichPlayer, 3, stdin);
 
             while (whichPlayer != 'H' && whichPlayer != 'C')
             {
                 printf("\nsome thing error please enter again\n");
                 scanf("%s",&whichPlayer);
             }
-
-            numberOfPlay = 1;
-            savePlace = 0 , restorePlace = 0 , scoreOne = 0 , scoreTwo = 0;
             ReadXML(&Width, &Height, &Highscores);
             arrInitialization(Height, Width, arr);
         }
 
-        system("clear");// apparently this clears the command prompts screen for windows only. Should change this. ---Ajai Gill
-
         while ( Width * Height >= numberOfPlay && gameOut != 1)
         {
-            system("clear");
             PrintArrayValue(&Height, &Width, &scoreOne, &scoreTwo, arr);
 
 if (numberOfPlay % 2 != 0)
@@ -86,9 +79,7 @@ if (numberOfPlay % 2 != 0)
             }
         }
 
-        system("cls");
         PrintArrayValue(&Height, &Width, &scoreOne, &scoreTwo, arr);
-        system("color 2A");
         if (numberOfPlay-1 == Width*Height)
         {
     if (scoreOne > scoreTwo)
