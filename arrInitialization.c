@@ -1,7 +1,7 @@
 #include "header.h"
 
 //Ronnie
-void arrInitialization(int Height , int Width) 
+void arrInitialization(int Height , int Width, char arr[100][100]) 
       {
     int counter1 , counter2 ; 
     for (counter1 = 0 ; counter1 < Height ; counter1++)

@@ -1,7 +1,7 @@
 #include "header.h"
 
 //Jordan
-void ReadXML(int Width, int Height, int Highscores)
+void ReadXML(int *Width, int *Height, int *Highscores)
 {
     char str[555];
     char str2[20][20];
@@ -9,7 +9,6 @@ void ReadXML(int Width, int Height, int Highscores)
     char *token;
     int counter, counter1 , counter3 ;
     int found = 0 , savePlace = 0 , colmun = 0 , row = 0, list = 0 , flag = 0;
-
     FILE * file = fopen( "data.xml" , "r");
 
     while (fscanf(file, "%s", str)!=EOF && flag == 0)
@@ -156,6 +155,7 @@ void ReadXML(int Width, int Height, int Highscores)
     {
         counter = 0;
         counter3 = 0;
+		
 
         while ( str2[counter][counter3] != '\0' && flag == 0)
         {
@@ -173,7 +173,7 @@ void ReadXML(int Width, int Height, int Highscores)
             flag = 1;
         }
         counter++;
-
+		
         while(counter < savePlace-2 && flag == 0)
         {
             counter3 = 0;
@@ -215,10 +215,11 @@ void ReadXML(int Width, int Height, int Highscores)
             counter += 3;
         }
     }
+	
     if( colmun > 3  && colmun < 13 && row > 3 && row < 13
             && list >= 0 && list < 13)
     {
-        Width = colmun , Height = row , Highscores = list;
+        *Width = colmun , *Height = row , *Highscores = list;
     }
     else
     {
@@ -226,7 +227,7 @@ void ReadXML(int Width, int Height, int Highscores)
     }
     if (flag == 1)
     {
-        Width =  7  , Height =  6 , Highscores = 5;
+        *Width =  7  , *Height =  6 , *Highscores = 5;
     }
     return;
 }
