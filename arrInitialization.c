@@ -1,14 +1,18 @@
 #include "header.h"
 
-//Ronnie
-void arrInitialization(int Height , int Width, char arr[100][100]) 
-      {
-    int counter1 , counter2 ; 
-    for (counter1 = 0 ; counter1 < Height ; counter1++)
-    {
-        for(counter2 = 0 ; counter2 < Width ; counter2++)
-        {
-            arr[counter1][counter2] = '-' ;
+/**
+ *  Date: October 3, 2018 - Ronnie Tran
+ *  Creates an empty connect 4 board.
+ * @param height, the board's height
+ * @param width, the board's width
+ */
+void arrInitialization(int height, int width, char arr[100][100])
+{
+    int h, w;
+    for (h = 0; h < height; h++) {
+        for (w = 0; w < width; w++) {
+            // fills the board with '-' for the width and height
+            arr[h][w] = '-';
         }
     }
-} 
+}
