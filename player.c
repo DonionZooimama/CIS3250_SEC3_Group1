@@ -18,7 +18,7 @@ void player(char *playerInput , int *numberOfPlay, int *Height, char arr[100][10
     }
     else
     {
-        numberOfCol = convert;//this is bad because it screws with the values of th Undo call below
+        numberOfCol = convert;
     }
 
     if(numberOfCol > 0 && numberOfCol <= *Width)
