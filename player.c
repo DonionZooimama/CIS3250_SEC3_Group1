@@ -1,8 +1,5 @@
 #include "header.h"
 
-//Just a note for you. This code makes no sense because he's using chars and comparing it with ints so im not gonna fix that.
-//still creates errors in compilation but you will figure it out. --- AJAI
-
 //Jordan
 void player(char *playerInput , int *numberOfPlay, int *Height, char arr[100][100],
 			char *arrSaveAction, int *savePlace, int *Width, int *Highscores, int *restorePlace, int *gameOut,
@@ -11,19 +8,20 @@ void player(char *playerInput , int *numberOfPlay, int *Height, char arr[100][10
     int row; 
     int flag = 0; 
     int convert;
+	char numberOfCol;
 
     convert = atoi(playerInput);
 
     if (convert == 0)
     {
-        *playerInput = 0;
+        numberOfCol = 0;
     }
     else
     {
-        *playerInput = convert;//this is bad because it screws with the values of th Undo call below
+        numberOfCol = convert;//this is bad because it screws with the values of th Undo call below
     }
 
-    if(*playerInput > 0 && *playerInput <= *Width)
+    if(numberOfCol > 0 && numberOfCol <= *Width)
     {
         
     }
@@ -49,7 +47,7 @@ void player(char *playerInput , int *numberOfPlay, int *Height, char arr[100][10
 
     for(row = 0 ; row < *Height && flag == 0; row++)
     {
-if(arr[*Height-row-1][*playerInput-1]== 'X' || arr[*Height-row-1][*playerInput-1] == 'O')
+if(arr[*Height-row-1][numberOfCol-1]== 'X' || arr[*Height-row-1][numberOfCol-1] == 'O')
         {
            
         }
@@ -60,19 +58,19 @@ if(arr[*Height-row-1][*playerInput-1]== 'X' || arr[*Height-row-1][*playerInput-1
                 *restorePlace = 0;
                 if (*numberOfPlay % 2 != 0)
                 {
-                    arr[*Height-row-1][*playerInput -1] = 'X';
-                    arrSaveAction[*savePlace] = (*playerInput- 1);
+                    arr[*Height-row-1][numberOfCol -1] = 'X';
+                    arrSaveAction[*savePlace] = (numberOfCol- 1);
                     *savePlace += 1;
-                    updateScore(*Height-row-1 , *playerInput - 1, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
+                    updateScore(*Height-row-1 , numberOfCol - 1, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
                 }
                 else
                 {
                     if (whichPlayer == 'H')
                     {
-                        arr[*Height-row-1][*playerInput - 1] = 'O';
-                        arrSaveAction[*savePlace] = (*playerInput- 1);
+                        arr[*Height-row-1][numberOfCol - 1] = 'O';
+                        arrSaveAction[*savePlace] = (numberOfCol- 1);
                         *savePlace += 1;
-                        updateScore(*Height-row-1 , *playerInput - 1, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
+                        updateScore(*Height-row-1 , numberOfCol - 1, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
                     }
                     else
                     {
@@ -80,7 +78,7 @@ if(arr[*Height-row-1][*playerInput-1]== 'X' || arr[*Height-row-1][*playerInput-1
                     }
                 }
 
-                system("cls");
+				
                 PrintArrayValue(Height, Width, scoreOne, scoreTwo, arr);
                 flag = 1;
             }
