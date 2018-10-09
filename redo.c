@@ -33,7 +33,6 @@ void Redo(int *restorePlace, int *Height, int *Width, int *numberOfPlay, int *sc
         updateScore(*Height-counter , noOfCol, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
         *numberOfPlay += 1;
     }
-    system("cls");
     PrintArrayValue(Height, Width, scoreOne, scoreTwo, arr);
     if (*numberOfPlay % 2 == 0)
     {

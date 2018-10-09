@@ -40,7 +40,6 @@ for(counter2 = 0 ; counter2 < *Width ; counter2++)
     }
     if(chose == 'N' || chose2 == 'Y')
     {
-        system("cls");
         PrintArrayValue(Height , Width, scoreOne, scoreTwo, arr);
 if (*numberOfPlay % 2 == 0)
         {

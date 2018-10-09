@@ -30,7 +30,6 @@ void Undo(int *savePlace, int *restorePlace, int *Height, int *Width, int *numbe
         }
     }
 
-    system("cls");
     PrintArrayValue(Height, Width, scoreOne, scoreTwo, arr);
 
     if (*numberOfPlay % 2 == 0)
