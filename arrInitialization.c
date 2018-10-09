@@ -5,6 +5,7 @@
  *  Creates an empty connect 4 board.
  * @param height, the board's height
  * @param width, the board's width
+ * @param arr, the board represented as a 2D array
  */
 void arrInitialization(int height, int width, char arr[100][100])
 {
