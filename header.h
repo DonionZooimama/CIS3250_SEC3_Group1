@@ -1,13 +1,9 @@
 #ifndef HEADER
 #define HEADER
 
-#include<stdio.h>
-#include<strings.h>
-#include <windows.h>
-#define BLUE SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE )
-#define RED SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED)
-#define INTENSITY SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY)
-#define GREEN SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void arrInitialization(int Height , int Width, char arr[100][100]);
 

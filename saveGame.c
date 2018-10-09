@@ -29,9 +29,9 @@ void saveGame( int *width, int *height, int *highscores, int *numberOfPlay, int 
         fprintf( file, "\n%d %d", *scoreOne, *scoreTwo );
         fprintf( file, "\n%s\n", &whichPlayer );
 
-	//Loop over all positions on board and print a copy of the board from 2d array (arr)
+	      //Loop over all positions on board and print a copy of the board from 2d array (arr)
         for( counter = 0 ; counter < *height ; counter++ )
-	{
+	      {
             for( counter2 = 0 ; counter2 < *width ; counter2++ )
             {
                 fprintf( file, "%c ", arr[counter][counter2] );
@@ -41,11 +41,11 @@ void saveGame( int *width, int *height, int *highscores, int *numberOfPlay, int 
 
         fclose( file );
         
-	printf( "\nThe game has been saved if you want to continue playing in the a \n"
+	      printf( "\nThe game has been saved if you want to continue playing in the a \n"
                "same game >>Enter Y << else >> Enter N << " );
         scanf( "%s", &chose2 );
         
-	if ( chose2 != 'Y' )
+	      if ( chose2 != 'Y' )
         {
             *gameOut = 1; 
         }
@@ -54,10 +54,9 @@ void saveGame( int *width, int *height, int *highscores, int *numberOfPlay, int 
     //If the player would like to continue playing
     if( chose == 'N' || chose2 == 'Y' )
     {
-        system( "cls" );
         PrintArrayValue( height , width, scoreOne, scoreTwo, arr );
 
-	if ( *numberOfPlay % 2 == 0 )
+        if ( *numberOfPlay % 2 == 0 )
         {
             printf( "\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`" );
             printf( "\tplayer2<<Enter your play>> = " );
