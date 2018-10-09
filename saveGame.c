@@ -4,6 +4,8 @@
  * Refactored by Derek Bowman
  * 
  * This function saves the state of the game
+ * Variables to write to file are: width, height, highscores, scoreOne, scoreTwo, whichPlayer and arr
+ * The rest are there only to pass into Player() : arrSaveAction, arrRestorePlace, playerInput, restorePlace, savePlace
  * Void return
  * */
 void saveGame( int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, 
