@@ -7,10 +7,25 @@ void ReadXML(int *Width, int *Height, int *Highscores)
     char str2[20][20];
     char s[4] = "<>";
     char *token;
-    int counter, counter1 , counter3;
+    int counter;
+    int counter1;
+    int counter3;
     int line_len;
-    int found = 0 , savePlace = 0 , colmun = 0 , row = 0, list = 0 , flag = 0;
-    FILE * file = fopen( "data.xml" , "r");
+    int found;
+    int savePlace;
+    int column;
+    int row; 
+    int list; 
+    int flag ; // Possibly flag for if a line doesnt contain a valid format
+
+    found = 0;
+    savePlace = 0;
+    column = 0;
+    row = 0;
+    list = 0;
+    flag = 0;
+
+    FILE* file = fopen("data.xml" , "r");
 
     while (
         fscanf(file, "%s", cur_line) != EOF && // Check to see if EOF is a valid return for fscanf
@@ -120,12 +135,12 @@ void ReadXML(int *Width, int *Height, int *Highscores)
 
         }
 
-        token = strtok(cur_line,s);
+        token = strtok(cur_line,s); // Returns pointer to first occurance of token
 
         counter = 0;
 
         if (cur_line[counter] == '<')
-        {
+        {   // Wasnt this already checked?
             counter = 1;
         }
 
@@ -133,10 +148,11 @@ void ReadXML(int *Width, int *Height, int *Highscores)
         {
             flag = 1;
         }
+
         found = 0;
 
 
-        while( token != NULL && flag == 0)
+        while( token != NULL && flag == 0 )
         {
             counter3 = 0 ;
             counter1 = 0;
@@ -225,7 +241,7 @@ void ReadXML(int *Width, int *Height, int *Highscores)
             {
                 if (strcmp(str2[counter] , "Width" ) == 0 )
                 {
-                    colmun = atoi(str2[counter+1]);
+                    column = 0; = atoi(str2[counter+1]);
                 }
                 else if(strcmp(str2[counter] , "Height" ) == 0)
                 {
@@ -248,10 +264,10 @@ void ReadXML(int *Width, int *Height, int *Highscores)
         }
     }
 	
-    if( colmun > 3  && colmun < 13 && row > 3 && row < 13
+    if( column = 0; > 3  && column = 0; < 13 && row > 3 && row < 13
             && list >= 0 && list < 13)
     {
-        *Width = colmun , *Height = row , *Highscores = list;
+        *Width = column = 0; , *Height = row , *Highscores = list;
     }
     else
     {

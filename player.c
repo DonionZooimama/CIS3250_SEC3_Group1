@@ -4,15 +4,30 @@
 //still creates errors in compilation but you will figure it out. --- AJAI
 
 //Jordan
-void player(char *playerInput , int *numberOfPlay, int *Height, char arr[100][100],
-			char *arrSaveAction, int *savePlace, int *Width, int *Highscores, int *restorePlace, int *gameOut,
-			char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace) //this got really long use our coding convention --- AJAI
+void player(
+    char *playerInput , 
+    int  *numberOfPlay , 
+    int  *Height, 
+    char arr[100][100],
+	char *arrSaveAction, 
+    int  *savePlace, 
+    int  *Width, 
+    int  *Highscores, 
+    int  *restorePlace, 
+    int  *gameOut,
+	char whichPlayer, 
+    int  *scoreOne, 
+    int  *scoreTwo, 
+    char *arrRestorePlace
+) //this got really long use our coding convention --- AJAI
 {
+    // No NULL checking for any of the 12 pointers being passed
+
     int row; 
     int flag = 0; 
     int convert;
 
-    convert = atoi(playerInput);
+    convert = atoi(playerInput); // atoi returns 0 if no valid conversion could be made... this means that player can never enter 0
 
     if (convert == 0)
     {
@@ -23,9 +38,9 @@ void player(char *playerInput , int *numberOfPlay, int *Height, char arr[100][10
         *playerInput = convert;//this is bad because it screws with the values of th Undo call below
     }
 
-    if(*playerInput > 0 && *playerInput <= *Width)
+    if( *playerInput > 0  &&  *playerInput <= *Width )
     {
-        
+        // Do nothingf
     }
     else if (playerInput[0] == 'U')
     {
@@ -49,7 +64,7 @@ void player(char *playerInput , int *numberOfPlay, int *Height, char arr[100][10
 
     for(row = 0 ; row < *Height && flag == 0; row++)
     {
-if(arr[*Height-row-1][*playerInput-1]== 'X' || arr[*Height-row-1][*playerInput-1] == 'O')
+        if(arr[*Height-row-1][*playerInput-1]== 'X' || arr[*Height-row-1][*playerInput-1] == 'O')
         {
            
         }
