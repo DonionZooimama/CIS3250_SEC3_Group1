@@ -55,7 +55,7 @@ void HighScoresList( int flag, int *highScoreList, int *listLength, int *highsco
     if ( flag == 1 )
     {
         FILE *file = fopen( "Highscores.txt" , "w" );
-        for( counter=0 ; counter < *Highscores ; counter++ )
+        for( counter=0 ; counter < *highscores ; counter++ )
         {
             fprintf( file, "%d\n", highScoreList[counter] );
             printf( "\n%d", highScoreList[counter] );
