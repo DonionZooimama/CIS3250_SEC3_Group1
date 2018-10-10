@@ -3,81 +3,109 @@
 //Jordan
 void ReadXML(int *Width, int *Height, int *Highscores)
 {
-    char str[555];
+    char cur_line[555]; // This assumes max line length is 554 characters
     char str2[20][20];
     char s[4] = "<>";
     char *token;
-    int counter, counter1 , counter3 ;
+    int counter, counter1 , counter3;
+    int line_len;
     int found = 0 , savePlace = 0 , colmun = 0 , row = 0, list = 0 , flag = 0;
     FILE * file = fopen( "data.xml" , "r");
 
-    while (fscanf(file, "%s", str)!=EOF && flag == 0)
+    while (
+        fscanf(file, "%s", cur_line) != EOF && // Check to see if EOF is a valid return for fscanf
+        flag == 0
+        )
     {
+        // Take each line of xml file and store it in cur_line
+        line_len = strlen(cur_line);
+
         counter = 0;
         found = 0;
 
-        if (strlen(str) > 3)
+        if ( line_len > 3 )
         {
-     if  (str[counter] == '<'&& ( str[strlen(str) - 1] == '>'
-                || str[strlen(str) - 2] == '>'|| str[strlen(str) - 3] == '>' || str[strlen(str) -4] == '>') )
+            if(
+                // If cur_line is "<~~~>", "<~~~>X", "<~~~>XX", or "<~~~>XXX"
+                cur_line[counter] == '<'  && 
+                ( 
+                    cur_line[line_len - 1] == '>'  || 
+                    cur_line[line_len - 2] == '>'  || 
+                    cur_line[line_len - 3] == '>'  || 
+                    cur_line[line_len - 4] == '>'
+                ) 
+            )
             {
                 counter++;
             }
-    else if (str[counter+1] == '<' && str[strlen(str) - 1] == '>')
-
+            else if ( cur_line[counter+1] == '<' && cur_line[line_len - 1] == '>' )
             {
-                counter +=2 ;
+                // If cur_line is "X<~~~>"
+                counter += 2;
             }
-   else if ( str[counter+2] == '<' &&  str[strlen(str) - 1] == '>')
-
+            else if ( cur_line[counter+2] == '<' &&  cur_line[line_len - 1] == '>' )
             {
-                counter+=3;
+                // If cur_line is "XX<~~~>"
+                counter += 3;
             }
-  else if ( str[counter+3] == '<' &&  str[strlen(str) - 1] == '>' )
-
+            else if ( cur_line[counter+3] == '<' &&  cur_line[line_len - 1] == '>' )
             {
+                // If cur_line is XXX<~~~>
                 counter += 4;
             }
- else
+            else
             {
+                // if cur_line doesnt follow any of the above formats, found (found what???) = 1
                 found = 1;
             }
 
-   if (found == 0)
+
+            if (found == 0)
             {
-                while(counter < strlen(str)-2 )
+                while(counter < line_len-2 )
                 {
-                    if( (str[counter] >= 'A' && str[counter] <= 'z') || str[counter] == '<'
-                            || str[counter] == '>' || str[counter] == '/')
+                    if( 
+                        (  cur_line[counter] >= 'A'  &&  cur_line[counter] <= 'z'  )  || 
+                           cur_line[counter] == '<'                                   || 
+                           cur_line[counter] == '>'                                   || 
+                           cur_line[counter] == '/'                                   
+                        )
                     {
-                        //do nothing
+                        // If cur_line[counter] is a letter, or '<', '>', '/'
+                        // Do nothing
                     }
                     else if (found == 0)
                     {
-                        if (str[counter+1] == '\0' || str[counter+2] =='\0' || str[counter+3] =='\0' ||str[counter+4] == '\0')
+                        if(
+                            cur_line[counter+1] == '\0'  || 
+                            cur_line[counter+2] == '\0'  || 
+                            cur_line[counter+3] == '\0'  ||
+                            cur_line[counter+4] == '\0'  
+                        )
                         {
-                            if(str[counter-1] != '>')
+                            if(cur_line[counter-1] != '>')
                             {
                                 flag = 1;
                             }
+                            // Else ??
                         }
-                        else if(str[counter-1] == '>' && str[counter+1] == '<' )
+                        else if(cur_line[counter-1] == '>' && cur_line[counter+1] == '<' )
                         {
-                            
+                            // What
                         }
-                        else if (str[counter-1] == '>' && str[counter+2] == '<')
+                        else if (cur_line[counter-1] == '>' && cur_line[counter+2] == '<')
                         {
-                           
+                            // Is  
                         }
-                        else if (str[counter-1] == '>' && str[counter+3] == '<')
+                        else if (cur_line[counter-1] == '>' && cur_line[counter+3] == '<')
                         {
-                            
+                            // This
                         }
                         else
                         {
                             flag = 1;
                         }
-
+                        // found gets switched on no matter what
                         found = 1;
                     }
                     counter++;
@@ -88,11 +116,15 @@ void ReadXML(int *Width, int *Height, int *Highscores)
                 flag = 1;
             }
         }
-        token = strtok(str,s);
+        else {
+
+        }
+
+        token = strtok(cur_line,s);
 
         counter = 0;
 
-        if (str[counter] == '<')
+        if (cur_line[counter] == '<')
         {
             counter = 1;
         }
@@ -109,27 +141,27 @@ void ReadXML(int *Width, int *Height, int *Highscores)
             counter3 = 0 ;
             counter1 = 0;
 
-            if (str[counter] == '<')
+            if (cur_line[counter] == '<')
             {
                 counter++;
             }
 
             while ( strlen(token) > counter1 )
             {
-                if ( (strlen(str) == 1 || strlen(str) == 2 || strlen(str) == 3) && found == 0 )
+                if ( (line_len == 1 || line_len == 2 || line_len == 3) && found == 0 )
                 {
                     counter = 0;
                     found = 1;
                 }
 
-                if (str[counter] == token[counter1] )
+                if (cur_line[counter] == token[counter1] )
                 {
                     counter3++;
                 }
                 counter1++;
                 counter++;
             }
-            if ( str[counter +1 ] == '>' || str[counter+1] == '<')
+            if ( cur_line[counter +1 ] == '>' || cur_line[counter+1] == '<')
             {
                 flag = 1;
             }
