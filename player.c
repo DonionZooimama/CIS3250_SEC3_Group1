@@ -37,7 +37,7 @@ void player(
     }
     else
     {
-        *playerInput = convert;//this is bad because it screws with the values of th Undo call below
+        *playerInput = convert; //this is bad because it screws with the values of th Undo call below
     }
 
     if( *playerInput > 0  &&  *playerInput <= *Width )

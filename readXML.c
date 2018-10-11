@@ -1,6 +1,147 @@
 #include "header.h"
 
 //Jordan
+// Edit to allow same pre and post conditions.
+
+void ReadXML(int *Width, int *Height, int *Highscores){
+
+    FILE *fp;
+    char cur_line[555];
+    int isWidth, isHeight, isHighscore;
+    int width, height, highscore;
+
+    fp = fopen("data.xml", "r");
+    isWidth = 0;
+    isHeight = 0;
+    isHighscore = 0;
+
+    if(fp == NULL)
+    {
+        printf("Error opening configuration file (data.xml)\n");
+        return;
+    }
+
+    while ( /* fscanf(fp, "%s", cur_line) != 0 */ fgets ( cur_line, sizeof cur_line, fp ) != NULL ) 
+    {
+        int line_len;
+        if( cur_line != NULL  &&  strcmp(cur_line, "") != 0 ) // Check to see if the line is NULL or empty (an error)
+        {
+            line_len = strlen(cur_line);
+
+            if( cur_line[0] == '<' )
+            {
+                int value_len = 1;
+                int start_i;
+
+                if( strncmp(cur_line, "<Width>", 7) == 0 )
+                {
+                    start_i = 7;
+                }
+                else if( strncmp(cur_line, "<Height>", 8) == 0 )
+                {
+                    start_i = 8;
+                }
+                else if( strncmp(cur_line, "<Highscores>", 12) == 0 )
+                {
+                    start_i = 12;
+                }
+                else 
+                {
+                    start_i = -1;
+                }
+
+                if( start_i != -1 )
+                {
+                    for(int i = start_i; i < line_len; i++){
+                        if(cur_line[i] != '<')
+                        {
+                            value_len++;
+                        }
+                        else 
+                        {
+                            break;
+                        }
+                    }
+
+                    char *value_str = malloc(sizeof(char) * (line_len - (start_i * 2 + 1) ) + 1);
+                    memcpy( value_str, &cur_line[start_i], value_len);
+                    value_str[value_len] = '\0';
+
+                    if( strncmp(cur_line, "<Width>", 7) == 0 )
+                    {
+                        width = atoi(value_str);
+
+                        if(width != 0)
+                        {
+                            isWidth = 1;
+                        }
+                        else 
+                        {
+                            printf("Invalid Width value: %s\n", value_str);
+                        }
+                    }
+                    else if( strncmp(cur_line, "<Height>", 8) == 0 )
+                    {
+                        height = atoi(value_str);
+
+                        if(height != 0)
+                        {
+                            isHeight = 1;
+                        }
+                        else 
+                        {
+                            printf("Invalid Height value: %s\n", value_str);
+                        }
+                    }
+                    else if( strncmp(cur_line, "<Highscores>", 12) == 0 )
+                    {
+                        highscore = atoi(value_str);
+
+                        if(highscore != 0)
+                        {
+                            isHighscore = 1;
+                        }
+                        else 
+                        {
+                            printf("Invalid Highscore value: %s\n", value_str);
+                        }
+                    }
+                    free(value_str);
+                }    
+            }
+        }
+        else 
+        {
+            printf("Empty or NULL line encountered in configuration file.\n");
+            fclose(fp);
+            return;
+        }
+    }
+
+    fclose(fp);
+
+    if(isWidth && isHeight)
+    {
+        *Width = width;
+        *Height = height;
+    }
+    else 
+    {
+        printf("Invalid Configuration file.\n");
+    }
+
+    if(isHighscore)
+    {
+        *Highscores = highscore;
+    }
+    else 
+    {
+        *Highscores = 0;
+    }
+
+    return;
+}
+/*
 void ReadXML(int *Width, int *Height, int *Highscores)
 {
     char cur_line[555]; // This assumes max line length is 554 characters
@@ -241,7 +382,8 @@ void ReadXML(int *Width, int *Height, int *Highscores)
             {
                 if (strcmp(str2[counter] , "Width" ) == 0 )
                 {
-                    column = 0; = atoi(str2[counter+1]);
+                    column = 0; 
+                    width = atoi(str2[counter+1]);
                 }
                 else if(strcmp(str2[counter] , "Height" ) == 0)
                 {
@@ -267,7 +409,9 @@ void ReadXML(int *Width, int *Height, int *Highscores)
     if( column = 0; > 3  && column = 0; < 13 && row > 3 && row < 13
             && list >= 0 && list < 13)
     {
-        *Width = column = 0; , *Height = row , *Highscores = list;
+        *Width = column = 0; 
+        *Height = row;
+        *Highscores = list;
     }
     else
     {
@@ -279,3 +423,4 @@ void ReadXML(int *Width, int *Height, int *Highscores)
     }
     return;
 }
+*/
