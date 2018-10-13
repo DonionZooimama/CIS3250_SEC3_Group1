@@ -6,7 +6,7 @@
 void ReadXML(int *Width, int *Height, int *Highscores){
 
     FILE *fp;
-    char cur_line[555];
+    char curLine[555];
     int isWidth, isHeight, isHighscore;
     int width, height, highscore;
 
@@ -21,41 +21,41 @@ void ReadXML(int *Width, int *Height, int *Highscores){
         return;
     }
 
-    while ( /* fscanf(fp, "%s", cur_line) != 0 */ fgets ( cur_line, sizeof cur_line, fp ) != NULL ) 
+    while ( /* fscanf(fp, "%s", curLine) != 0 */ fgets ( curLine, sizeof curLine, fp ) != NULL ) 
     {
-        int line_len;
-        if( cur_line != NULL  &&  strcmp(cur_line, "") != 0 ) // Check to see if the line is NULL or empty (an error)
+        int lineLen;
+        if( curLine != NULL  &&  strcmp(curLine, "") != 0 ) // Check to see if the line is NULL or empty (an error)
         {
-            line_len = strlen(cur_line);
+            lineLen = strlen(curLine);
 
-            if( cur_line[0] == '<' )
+            if( curLine[0] == '<' )
             {
-                int value_len = 1;
-                int start_i;
+                int valueLen = 1;
+                int startI;
 
-                if( strncmp(cur_line, "<Width>", 7) == 0 )
+                if( strncmp(curLine, "<Width>", 7) == 0 )
                 {
-                    start_i = 7;
+                    startI = 7;
                 }
-                else if( strncmp(cur_line, "<Height>", 8) == 0 )
+                else if( strncmp(curLine, "<Height>", 8) == 0 )
                 {
-                    start_i = 8;
+                    startI = 8;
                 }
-                else if( strncmp(cur_line, "<Highscores>", 12) == 0 )
+                else if( strncmp(curLine, "<Highscores>", 12) == 0 )
                 {
-                    start_i = 12;
+                    startI = 12;
                 }
                 else 
                 {
-                    start_i = -1;
+                    startI = -1;
                 }
 
-                if( start_i != -1 )
+                if( startI != -1 )
                 {
-                    for(int i = start_i; i < line_len; i++){
-                        if(cur_line[i] != '<')
+                    for(int i = startI; i < lineLen; i++){
+                        if(curLine[i] != '<')
                         {
-                            value_len++;
+                            valueLen++;
                         }
                         else 
                         {
@@ -63,13 +63,13 @@ void ReadXML(int *Width, int *Height, int *Highscores){
                         }
                     }
 
-                    char *value_str = malloc(sizeof(char) * (line_len - (start_i * 2 + 1) ) + 1);
-                    memcpy( value_str, &cur_line[start_i], value_len);
-                    value_str[value_len] = '\0';
+                    char *valueStr = malloc(sizeof(char) * (lineLen - (startI * 2 + 1) ) + 1);
+                    memcpy( valueStr, &curLine[startI], valueLen);
+                    valueStr[valueLen] = '\0';
 
-                    if( strncmp(cur_line, "<Width>", 7) == 0 )
+                    if( strncmp(curLine, "<Width>", 7) == 0 )
                     {
-                        width = atoi(value_str);
+                        width = atoi(valueStr);
 
                         if(width != 0)
                         {
@@ -77,12 +77,12 @@ void ReadXML(int *Width, int *Height, int *Highscores){
                         }
                         else 
                         {
-                            printf("Invalid Width value: %s\n", value_str);
+                            printf("Invalid Width value: %s\n", valueStr);
                         }
                     }
-                    else if( strncmp(cur_line, "<Height>", 8) == 0 )
+                    else if( strncmp(curLine, "<Height>", 8) == 0 )
                     {
-                        height = atoi(value_str);
+                        height = atoi(valueStr);
 
                         if(height != 0)
                         {
@@ -90,12 +90,12 @@ void ReadXML(int *Width, int *Height, int *Highscores){
                         }
                         else 
                         {
-                            printf("Invalid Height value: %s\n", value_str);
+                            printf("Invalid Height value: %s\n", valueStr);
                         }
                     }
-                    else if( strncmp(cur_line, "<Highscores>", 12) == 0 )
+                    else if( strncmp(curLine, "<Highscores>", 12) == 0 )
                     {
-                        highscore = atoi(value_str);
+                        highscore = atoi(valueStr);
 
                         if(highscore != 0)
                         {
@@ -103,10 +103,10 @@ void ReadXML(int *Width, int *Height, int *Highscores){
                         }
                         else 
                         {
-                            printf("Invalid Highscore value: %s\n", value_str);
+                            printf("Invalid Highscore value: %s\n", valueStr);
                         }
                     }
-                    free(value_str);
+                    free(valueStr);
                 }    
             }
         }
@@ -141,17 +141,18 @@ void ReadXML(int *Width, int *Height, int *Highscores){
 
     return;
 }
+
 /*
 void ReadXML(int *Width, int *Height, int *Highscores)
 {
-    char cur_line[555]; // This assumes max line length is 554 characters
+    char curLine[555]; // This assumes max line length is 554 characters
     char str2[20][20];
     char s[4] = "<>";
     char *token;
     int counter;
     int counter1;
     int counter3;
-    int line_len;
+    int lineLen;
     int found;
     int savePlace;
     int column;
@@ -169,91 +170,91 @@ void ReadXML(int *Width, int *Height, int *Highscores)
     FILE* file = fopen("data.xml" , "r");
 
     while (
-        fscanf(file, "%s", cur_line) != EOF && // Check to see if EOF is a valid return for fscanf
+        fscanf(file, "%s", curLine) != EOF && // Check to see if EOF is a valid return for fscanf
         flag == 0
         )
     {
-        // Take each line of xml file and store it in cur_line
-        line_len = strlen(cur_line);
+        // Take each line of xml file and store it in curLine
+        lineLen = strlen(curLine);
 
         counter = 0;
         found = 0;
 
-        if ( line_len > 3 )
+        if ( lineLen > 3 )
         {
             if(
-                // If cur_line is "<~~~>", "<~~~>X", "<~~~>XX", or "<~~~>XXX"
-                cur_line[counter] == '<'  && 
+                // If curLine is "<~~~>", "<~~~>X", "<~~~>XX", or "<~~~>XXX"
+                curLine[counter] == '<'  && 
                 ( 
-                    cur_line[line_len - 1] == '>'  || 
-                    cur_line[line_len - 2] == '>'  || 
-                    cur_line[line_len - 3] == '>'  || 
-                    cur_line[line_len - 4] == '>'
+                    curLine[lineLen - 1] == '>'  || 
+                    curLine[lineLen - 2] == '>'  || 
+                    curLine[lineLen - 3] == '>'  || 
+                    curLine[lineLen - 4] == '>'
                 ) 
             )
             {
                 counter++;
             }
-            else if ( cur_line[counter+1] == '<' && cur_line[line_len - 1] == '>' )
+            else if ( curLine[counter+1] == '<' && curLine[lineLen - 1] == '>' )
             {
-                // If cur_line is "X<~~~>"
+                // If curLine is "X<~~~>"
                 counter += 2;
             }
-            else if ( cur_line[counter+2] == '<' &&  cur_line[line_len - 1] == '>' )
+            else if ( curLine[counter+2] == '<' &&  curLine[lineLen - 1] == '>' )
             {
-                // If cur_line is "XX<~~~>"
+                // If curLine is "XX<~~~>"
                 counter += 3;
             }
-            else if ( cur_line[counter+3] == '<' &&  cur_line[line_len - 1] == '>' )
+            else if ( curLine[counter+3] == '<' &&  curLine[lineLen - 1] == '>' )
             {
-                // If cur_line is XXX<~~~>
+                // If curLine is XXX<~~~>
                 counter += 4;
             }
             else
             {
-                // if cur_line doesnt follow any of the above formats, found (found what???) = 1
+                // if curLine doesnt follow any of the above formats, found (found what???) = 1
                 found = 1;
             }
 
 
             if (found == 0)
             {
-                while(counter < line_len-2 )
+                while(counter < lineLen-2 )
                 {
                     if( 
-                        (  cur_line[counter] >= 'A'  &&  cur_line[counter] <= 'z'  )  || 
-                           cur_line[counter] == '<'                                   || 
-                           cur_line[counter] == '>'                                   || 
-                           cur_line[counter] == '/'                                   
+                        (  curLine[counter] >= 'A'  &&  curLine[counter] <= 'z'  )  || 
+                           curLine[counter] == '<'                                   || 
+                           curLine[counter] == '>'                                   || 
+                           curLine[counter] == '/'                                   
                         )
                     {
-                        // If cur_line[counter] is a letter, or '<', '>', '/'
+                        // If curLine[counter] is a letter, or '<', '>', '/'
                         // Do nothing
                     }
                     else if (found == 0)
                     {
                         if(
-                            cur_line[counter+1] == '\0'  || 
-                            cur_line[counter+2] == '\0'  || 
-                            cur_line[counter+3] == '\0'  ||
-                            cur_line[counter+4] == '\0'  
+                            curLine[counter+1] == '\0'  || 
+                            curLine[counter+2] == '\0'  || 
+                            curLine[counter+3] == '\0'  ||
+                            curLine[counter+4] == '\0'  
                         )
                         {
-                            if(cur_line[counter-1] != '>')
+                            if(curLine[counter-1] != '>')
                             {
                                 flag = 1;
                             }
                             // Else ??
                         }
-                        else if(cur_line[counter-1] == '>' && cur_line[counter+1] == '<' )
+                        else if(curLine[counter-1] == '>' && curLine[counter+1] == '<' )
                         {
                             // What
                         }
-                        else if (cur_line[counter-1] == '>' && cur_line[counter+2] == '<')
+                        else if (curLine[counter-1] == '>' && curLine[counter+2] == '<')
                         {
                             // Is  
                         }
-                        else if (cur_line[counter-1] == '>' && cur_line[counter+3] == '<')
+                        else if (curLine[counter-1] == '>' && curLine[counter+3] == '<')
                         {
                             // This
                         }
@@ -276,11 +277,11 @@ void ReadXML(int *Width, int *Height, int *Highscores)
 
         }
 
-        token = strtok(cur_line,s); // Returns pointer to first occurance of token
+        token = strtok(curLine,s); // Returns pointer to first occurance of token
 
         counter = 0;
 
-        if (cur_line[counter] == '<')
+        if (curLine[counter] == '<')
         {   // Wasnt this already checked?
             counter = 1;
         }
@@ -298,27 +299,27 @@ void ReadXML(int *Width, int *Height, int *Highscores)
             counter3 = 0 ;
             counter1 = 0;
 
-            if (cur_line[counter] == '<')
+            if (curLine[counter] == '<')
             {
                 counter++;
             }
 
             while ( strlen(token) > counter1 )
             {
-                if ( (line_len == 1 || line_len == 2 || line_len == 3) && found == 0 )
+                if ( (lineLen == 1 || lineLen == 2 || lineLen == 3) && found == 0 )
                 {
                     counter = 0;
                     found = 1;
                 }
 
-                if (cur_line[counter] == token[counter1] )
+                if (curLine[counter] == token[counter1] )
                 {
                     counter3++;
                 }
                 counter1++;
                 counter++;
             }
-            if ( cur_line[counter +1 ] == '>' || cur_line[counter+1] == '<')
+            if ( curLine[counter +1 ] == '>' || curLine[counter+1] == '<')
             {
                 flag = 1;
             }
