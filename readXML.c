@@ -1,3 +1,16 @@
+/**
+ *  Jordan Evans
+ *  0964044
+ *  The ReadXML function is a parser for a custom xml-like filetype. The
+ *  function opens the "data.xml" file and reads it into memory. It then
+ *  checks each line for either the width tag (<Width>), height tag (<Height>)
+ *  or the highscores tag (<Highscores>). If height or width arent present
+ *  in the file, an error is printed to stdout. If highscore isn't present,
+ *  *Highscore is set to 0. If all tags are present, the parser extracts the
+ *  value between the open and close tags and assigns it to the *Width, 
+ *  *Height and *Highscores pointers.
+ */
+
 #include "header.h"
 
 //Jordan
