@@ -7,7 +7,7 @@
 *lines, and putting complicated expressions on their own lines.
 */
 
-#inlude "header.h"
+#include "header.h"
 
 /*
 *The Variables which are not defined (formerly global variables) are: savePlace, arrSaveAction[], 
@@ -40,12 +40,12 @@ char *arrRestorePlace, char *playerInput, char arr[100][100])
 
         for ( counter = 0 ; counter < height && flag == 0 ; counter++ )
         {
-            if (arr[ counter ][ noOfCol ] == 'X' 
-	    ||  arr[ counter ][ noOfCol ] == 'O')
+            if ( arr[ counter ][ noOfCol ] == 'X' 
+	    ||  arr[ counter ][ noOfCol ] == 'O' )
             {
 		//updates the board, and decreases the move number
                 numberOfPlay--;
-                UpdateScore( row, col, width, height, numOfPlay, scoreOne, scoreTwo, playerInput, arr);
+                UpdateScore( row, col, width, height, numOfPlay, scoreOne, scoreTwo, playerInput, arr );
                 arr[ counter ][ noOfCol ] = '-';
 
                 flag = 1;
@@ -62,8 +62,8 @@ char *arrRestorePlace, char *playerInput, char arr[100][100])
 	//If it is the human players turn, display the board, and move to players turn
         if ( whichPlayer == 'H' )
         {
-            printf( "\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`", INTENSITY );
-            printf( "\tplayer2<<Enter your play>> = ", BLUE );
+            printf( "\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`" );
+            printf( "\tplayer2<<Enter your play>> = " );
             scanf( "%s", playerInput );
             Player( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width,
 	    highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
@@ -72,14 +72,14 @@ char *arrRestorePlace, char *playerInput, char arr[100][100])
 	//otherwise, move to computer player
         else
         {
-            ComputerPlayer( height, width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput);
+            ComputerPlayer( height, width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput );
         }
     }
     //if it is an odd numbered turn, display the board, and move to players turn
     else
     {
-        printf( "\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8", INTENSITY );
-        printf( "\t player1<<Enter your play>> = ", GREEN );
+        printf( "\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8" );
+        printf( "\t player1<<Enter your play>> = " );
         scanf( "%s", playerInput );
         Player( playerInput , numberOfPlay );
     }

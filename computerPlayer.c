@@ -33,8 +33,8 @@ char *playerInput)
         {
 
 	    //If the board position has a piece already, then do nothing
-            if( arr[ height - row - 1 ][ randomPlay ]== 'X' 
-	    || arr[ height - row - 1 ][ randomPlay ] == 'O')
+            if( arr[ height - row - 1 ][ randomPlay ] == 'X' 
+	    || arr[ height - row - 1 ][ randomPlay ] == 'O' )
             {
                
             }
@@ -50,7 +50,7 @@ char *playerInput)
                     arrSaveAction[ savePlace ] = ( randomPlay );
                     savePlace++; //savePlave is incremented
                     UpdateScore( height - row - 1 , randomPlay ); //Score is updated
-                    system("cls");
+                    system( "cls" );
                     PrintArrayValue( height, width );
                     flag = 1;
                 }
