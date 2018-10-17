@@ -4,23 +4,20 @@
  * Oct 8, 2018
  * Refactored by Derek Bowman
  * 
- * int flag : changes whether you read or write from file (can be changed to two seporate functions
+ * int readOrWrite : changes whether you read or write from file (can be changed to two seporate functions
  * int *highScoreList, *listLength, highscores : deals with the highscore list
  * int scoreOne, scoreTwo : the scores to add
  * void return
  * */
 
-void HighScoresList( int flag, int *highScoreList, int *listLength, int *highscores, int scoreOne, int scoreTwo )
+void HighScoresList( int readOrWrite, int *highScoreList, int *listLength, int *highscores, int scoreOne, int scoreTwo )
 {
-    int counter;
-    int counter1;
-    int temp;
 
-    //Flag 0 reads Highscores from file to array
-    if ( flag == 0 )
+    //readOrWrite flag 0 reads Highscores from file to array
+    if ( readOrWrite == 0 )
     {
         FILE *file = fopen( "Highscores.txt", "r" );
-        while( fscanf( file, "%d", &highScoreList[*listLength] ) != EOF )
+        while( fscanf( file, "%d", &highScoreList[ *listLength ] ) != EOF )
         {
             *listLength += 1;
         }
@@ -35,38 +32,38 @@ void HighScoresList( int flag, int *highScoreList, int *listLength, int *highsco
      *  - Currently adds scoreOne and scoreTwo, then sorts. Should this be done
      *    differently /in seporate methods?
      */
-    highScoreList[*listLength] = scoreOne;
-    highScoreList[*listLength+1] = scoreTwo;
+    highScoreList[ *listLength ] = scoreOne;
+    highScoreList[ *listLength+1 ] = scoreTwo;
     printf( "The High Score List\n" );
 
-    for ( counter = 1 ; counter <= *listLength+1 ; counter++)
+    for ( int i = 1 ; i <= *listLength + 1 ; i++ )
     {
-        counter1 = counter;
-        while ( counter1 > 0 && highScoreList[counter1] > highScoreList[counter1-1] )
+        int j = i;
+        while ( j > 0 && highScoreList[ j ] > highScoreList[ j-1 ] )
         {
-            temp = highScoreList[counter1];
-            highScoreList[counter1] = highScoreList[counter1-1];
-            highScoreList[counter1-1] = temp;
-            counter1--;
+            int swap = highScoreList[ j ];
+            highScoreList[ j ] = highScoreList[ j - 1 ];
+            highScoreList[ j - 1 ] = swap;
+            j--;
         }
     }
 
-    //Flag 1 will print to file and screen
-    if ( flag == 1 )
+    //readOrWrite flag 1 will print to file and screen
+    if ( readOrWrite == 1 )
     {
         FILE *file = fopen( "Highscores.txt" , "w" );
-        for( counter=0 ; counter < *highscores ; counter++ )
+        for( int i = 0 ; i < *highscores ; i++ )
         {
-            fprintf( file, "%d\n", highScoreList[counter] );
-            printf( "\n%d", highScoreList[counter] );
+            fprintf( file, "%d\n", highScoreList[ i ] );
+            printf( "\n%d", highScoreList[ i ] );
         }
         fclose( file );
     }
     else
     {
-        for( counter = 0 ; counter < *listLength ; counter++ )
+        for( int i = 0 ; i < *listLength ; i++ )
         {
-            printf( "%d\n", highScoreList[counter] );
+            printf( "%d\n", highScoreList[ i ] );
         }
     }
 }
