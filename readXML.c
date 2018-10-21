@@ -20,41 +20,42 @@ void ReadXML(int *Width, int *Height, int *Highscores){
 
     FILE *fp;
     char curLine[555];
-    int isWidth, isHeight, isHighscore;
-    int width, height, highscore;
+    int isWidth = 0;
+    int isHeight = 0;
+    int isHighscore = 0;
+    int width = 0;
+    int height = 0;
+    int highscore = 0;
 
-    fp = fopen("data.xml", "r");
-    isWidth = 0;
-    isHeight = 0;
-    isHighscore = 0;
+    fp = fopen( "data.xml", "r" );
 
-    if(fp == NULL)
+    if( fp == NULL )
     {
-        printf("Error opening configuration file (data.xml)\n");
+        printf( "Error opening configuration file (data.xml)\n" );
         return;
     }
 
     while ( /* fscanf(fp, "%s", curLine) != 0 */ fgets ( curLine, sizeof curLine, fp ) != NULL ) 
     {
-        int lineLen;
-        if( curLine != NULL  &&  strcmp(curLine, "") != 0 ) // Check to see if the line is NULL or empty (an error)
+        int lineLen = 0;
+        if( curLine != NULL  &&  strcmp( curLine, "" ) != 0 ) // Check to see if the line is NULL or empty (an error)
         {
-            lineLen = strlen(curLine);
+            lineLen = strlen( curLine );
 
-            if( curLine[0] == '<' )
+            if( curLine[ 0 ] == '<' )
             {
                 int valueLen = 1;
                 int startI;
 
-                if( strncmp(curLine, "<Width>", 7) == 0 )
+                if( strncmp( curLine, "<Width>", 7 ) == 0 )
                 {
                     startI = 7;
                 }
-                else if( strncmp(curLine, "<Height>", 8) == 0 )
+                else if( strncmp( curLine, "<Height>", 8 ) == 0 )
                 {
                     startI = 8;
                 }
-                else if( strncmp(curLine, "<Highscores>", 12) == 0 )
+                else if( strncmp( curLine, "<Highscores>", 12 ) == 0 )
                 {
                     startI = 12;
                 }
@@ -65,8 +66,8 @@ void ReadXML(int *Width, int *Height, int *Highscores){
 
                 if( startI != -1 )
                 {
-                    for(int i = startI; i < lineLen; i++){
-                        if(curLine[i] != '<')
+                    for( int i = startI; i < lineLen; i++ ){
+                        if( curLine[i] != '<' )
                         {
                             valueLen++;
                         }
@@ -76,74 +77,74 @@ void ReadXML(int *Width, int *Height, int *Highscores){
                         }
                     }
 
-                    char *valueStr = malloc(sizeof(char) * (lineLen - (startI * 2 + 1) ) + 1);
-                    memcpy( valueStr, &curLine[startI], valueLen);
-                    valueStr[valueLen] = '\0';
+                    char *valueStr = malloc( sizeof( char ) * ( lineLen - ( startI * 2 + 1 ) ) + 1 );
+                    memcpy( valueStr, &curLine[ startI ], valueLen );
+                    valueStr[ valueLen ] = '\0';
 
-                    if( strncmp(curLine, "<Width>", 7) == 0 )
+                    if( strncmp( curLine, "<Width>", 7 ) == 0 )
                     {
-                        width = atoi(valueStr);
+                        width = atoi( valueStr );
 
-                        if(width != 0)
+                        if( width != 0 )
                         {
                             isWidth = 1;
                         }
                         else 
                         {
-                            printf("Invalid Width value: %s\n", valueStr);
+                            printf( "Invalid Width value: %s\n", valueStr );
                         }
                     }
-                    else if( strncmp(curLine, "<Height>", 8) == 0 )
+                    else if( strncmp( curLine, "<Height>", 8 ) == 0 )
                     {
-                        height = atoi(valueStr);
+                        height = atoi( valueStr );
 
-                        if(height != 0)
+                        if( height != 0 )
                         {
                             isHeight = 1;
                         }
                         else 
                         {
-                            printf("Invalid Height value: %s\n", valueStr);
+                            printf( "Invalid Height value: %s\n", valueStr );
                         }
                     }
-                    else if( strncmp(curLine, "<Highscores>", 12) == 0 )
+                    else if( strncmp( curLine, "<Highscores>", 12 ) == 0 )
                     {
-                        highscore = atoi(valueStr);
+                        highscore = atoi( valueStr );
 
-                        if(highscore != 0)
+                        if( highscore != 0 )
                         {
                             isHighscore = 1;
                         }
                         else 
                         {
-                            printf("Invalid Highscore value: %s\n", valueStr);
+                            printf( "Invalid Highscore value: %s\n", valueStr );
                         }
                     }
-                    free(valueStr);
+                    free( valueStr );
                 }    
             }
         }
         else 
         {
-            printf("Empty or NULL line encountered in configuration file.\n");
-            fclose(fp);
+            printf( "Empty or NULL line encountered in configuration file.\n" );
+            fclose( fp );
             return;
         }
     }
 
-    fclose(fp);
+    fclose( fp );
 
-    if(isWidth && isHeight)
+    if( isWidth && isHeight )
     {
         *Width = width;
         *Height = height;
     }
     else 
     {
-        printf("Invalid Configuration file.\n");
+        printf( "Invalid Configuration file.\n" );
     }
 
-    if(isHighscore)
+    if( isHighscore )
     {
         *Highscores = highscore;
     }
