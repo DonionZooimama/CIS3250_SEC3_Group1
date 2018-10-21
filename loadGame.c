@@ -1,14 +1,17 @@
 #include "header.h"
 
 /*
- * Oct 9, 2018
+ * Oct 21, 2018
  * 1015577
  * Refactored by Ajai Gill
- * 
+ *
+ * int *width, *height, *highScores, *numberOfPlay, *scoreOne, *scoreTwo, *restorePlace, *savePlace: all needed to be inititialized when loading the save file.
+ * char *whichPlayer : needed to be initialized when loading save file.
+ * char arr[ 100 ][ 100 ] : used to initialize the board to the save file's board.
  */
 
-void loadGame( int *Width,
-			   int *Height,
+void LoadGame( int *width,
+			   int *height,
 			   int *highScores,
 			   int *numberOfPlay,
 			   int *scoreOne,
@@ -16,10 +19,10 @@ void loadGame( int *Width,
 			   char *whichPlayer,
 			   int *savePlace,
 			   int *restorePlace,
-			   char arr[100][100] )
+			   char arr[ 100 ][ 100 ] )
 {
-    int i;
-	int j;
+    int i = 0;
+	int j = 0;
 	int numX = 0;
 	int numO = 0;
 	int loadError = 0;
@@ -34,16 +37,16 @@ void loadGame( int *Width,
     else
     {
 		//obtains the data in the save file.
-        fscanf( file, "%d %d %d %d", Width, Height, highScores, numberOfPlay );
+        fscanf( file, "%d %d %d %d", width, height, highScores, numberOfPlay );
         fscanf( file, "%d %d", scoreOne, scoreTwo );
         fscanf( file, "%s", whichPlayer );
 	
 		//recreates the board in the arr array.
-        for( i = 0; i < *Height ; i++ )
+        for( i = 0 ; i < *height ; i++ )
         {
-            for( j = 0; j < *Width ; j++ )
+            for( j = 0 ; j < *width ; j++ )
             {
-                fscanf( file," %c ",&arr[i][j] );
+                fscanf( file," %c ",&arr[ i ][ j ] );
 				
                 if ( arr[ i ][ j ] == 'X' )
                 {
@@ -60,11 +63,11 @@ void loadGame( int *Width,
     fclose(file);
 	
 	//checks if the file is changed and warns the program if there is an error in the file
-    if ( *Width < 3 || *Width > 12 || *Height < 3 || *Height > 12 )
+    if ( *width < 3 || *width > 12 || *height < 3 || *height > 12 )
     {
         loadError = 1;
     }
-    else if ( *numberOfPlay % 2 == 0 && (numX-1 != numO || (numX * 2) != *numberOfPlay) )
+    else if ( *numberOfPlay % 2 == 0 && ( numX-1 != numO || ( numX * 2 ) != *numberOfPlay ) )
     {
         loadError = 1;
     }
@@ -85,7 +88,7 @@ void loadGame( int *Width,
         printf( "\n\t >> Human vs. Human << \n OR \n\t >> Human vs. Computer <<\n" );
         printf( "\n>>Enter (H) if two player && (C) if one player\n" );
 
-        scanf( "%s",whichPlayer );
+        scanf( "%s", whichPlayer );
 
         while ( *whichPlayer != 'H' && *whichPlayer != 'C' )
         {
@@ -99,8 +102,8 @@ void loadGame( int *Width,
 		*scoreOne = 0;
 		*scoreTwo = 0;
 		
-		ReadXML( Width, Height, highScores );
-        arrInitialization( *Height, *Width, arr );
+		ReadXML( width, height, highScores );
+        ArrInitialization( *height, *width, arr );
         
     }
 }

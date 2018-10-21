@@ -1,16 +1,26 @@
 #include "header.h"
 
 /*
- * Oct 9, 2018
+ * Oct 21, 2018
  * 1015577
  * Refactored by Ajai Gill
- * 
+ *
+ * int *restorePlace : value that contains where to restore the movement made by the player.
+ * int *height : the height in which to place the player movement that needs to be redone.
+ * int *numberOfPlay : which turn it is.
+ * int *width, *scoreOne, *scoreTwo, *gameOut, *highScores : to call the other functions.
+ * int *savePlace : conatins amount of movements made.
+ * char *whichPlayer, arrSaveAction : to call the functions.
+ * char *playerInput : the string containing the player input.
+ * char *arrRestorePlace : the array that contains the location to restore the movement of the player.
+ * char arr[100][100] : the array that holds the game board.
+ * void return
  */
 
 //undoes an undo in a human vs human game.
 void Redo( int *restorePlace,
-		   int *Height,
-		   int *Width,
+		   int *height,
+		   int *width,
 		   int *numberOfPlay,
 		   int *scoreOne,
 		   int *scoreTwo,
@@ -20,7 +30,7 @@ void Redo( int *restorePlace,
 		   char whichPlayer,
 		   char *playerInput,
 		   char *arrRestorePlace,
-		   char arr[100][100],
+		   char arr[ 100 ][ 100 ],
 		   char *arrSaveAction )
 {
     int i = 0;
@@ -36,35 +46,37 @@ void Redo( int *restorePlace,
         *savePlace += 1;
 		
 		//finds the location in the game and places the correct symbol for the redo
-        for ( i = 0 ; i < *Height && flag == 0; i++ )
+        for ( i = 0 ; i < *height && flag == 0; i++ )
         {
-            if ( arr[ *Height - i - 1 ][ noOfCol ] == '-' )
+            if ( arr[ *height - i - 1 ][ noOfCol ] == '-' )
             {
                 if ( *numberOfPlay % 2 != 0 )
                 {
-                    arr[ *Height - i - 1 ][ noOfCol ] = 'X';
+                    arr[ *height - i - 1 ][ noOfCol ] = 'X';
                 }
                 else
                 {
-                    arr[ *Height - i - 1 ][ noOfCol ] = 'O';
+                    arr[ *height - i - 1 ][ noOfCol ] = 'O';
                 }
                 flag = 1;
             }
         }
 		
-        updateScore( *Height - i , noOfCol, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr );
+        UpdateScore( *height - i , noOfCol, width, height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr );
         *numberOfPlay += 1;
     }
 	
-    PrintArrayValue( Height, Width, scoreOne, scoreTwo, arr );
+    PrintArrayValue( height, width, scoreOne, scoreTwo, arr );
 	
+	
+	//this can be placed into a helper function
     if ( *numberOfPlay % 2 == 0 )
     {
         printf( "\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`" );
         printf( "\tplayer2<<Enter your play>> = " );
         scanf( "%s", playerInput );
 		
-        player( playerInput , numberOfPlay,  Height, arr, arrSaveAction, savePlace, Width, highScores,
+        Player( playerInput , numberOfPlay,  height, arr, arrSaveAction, savePlace, width, highScores,
 				restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
     }
     else
@@ -73,7 +85,7 @@ void Redo( int *restorePlace,
         printf( "\t player1<<Enter your play>> = " );
         scanf( "%s", playerInput );
 		
-        player( playerInput , numberOfPlay,  Height, arr, arrSaveAction, savePlace, Width, highScores,
+        Player( playerInput , numberOfPlay,  height, arr, arrSaveAction, savePlace, width, highScores,
 				restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
     }
 } 
