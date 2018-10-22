@@ -8,7 +8,7 @@
  * The rest are there only to pass into Player() : arrSaveAction, arrRestorePlace, playerInput, restorePlace, savePlace
  * Void return
  * */
-void saveGame( int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, 
+void SaveGame( int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, 
                int *gameOut, char whichPlayer, int *savePlace, int *restorePlace, char arr[ 100 ][ 100 ], 
 	       char *arrSaveAction, char *arrRestorePlace, char *playerInput )
 {
