@@ -1,11 +1,11 @@
 #include "header.h"
 
 //Daniel
-void updateScore(int row , int col, int *Width, int *Height, int *numberOfPlay, int *scoreOne, int *scoreTwo, char *playerInput, char arr[100][100])
+void UpdateScore( int row , int col, int *Width, int *Height, int *numberOfPlay, int *scoreOne, int *scoreTwo, char *playerInput, char arr[ 100 ][ 100 ] )
 {
     int score = 0;
 
-    if( col + 3 <= *Width && arr[ row ][ col ] == arr[ row ][ col+1 ]
+    if( col + 3 <= *Width && arr[ row ][ col ] == arr[ row ][ col + 1 ]
        && arr[ row ][ col ] == arr[ row ][ col + 2 ] && arr[ row ][ col ] == arr[ row ][ col + 3 ] )
     {
         score++;
@@ -85,9 +85,9 @@ void updateScore(int row , int col, int *Width, int *Height, int *numberOfPlay, 
     {
         score++;
     }
-    if (*numberOfPlay % 2 != 0)
+    if ( *numberOfPlay % 2 != 0 )
     {
-        if (playerInput[0] == 'U')
+        if ( playerInput[ 0 ] == 'U' )
         {
             *scoreOne -= score;
         }
@@ -98,7 +98,7 @@ void updateScore(int row , int col, int *Width, int *Height, int *numberOfPlay, 
     }
     else
     {
-        if (playerInput[0] == 'U')
+        if ( playerInput[ 0 ] == 'U' )
         {
             *scoreTwo -= score;
         }
