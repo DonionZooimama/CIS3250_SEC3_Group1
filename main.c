@@ -1,6 +1,6 @@
 #include "header.h"
 
-{
+void main(){
 	char arr[ 100 ][ 100 ];
 	char arrSaveAction[ 100 ] = { 0 }; 
 	char arrRestorePlace[100] = { 0 }; 

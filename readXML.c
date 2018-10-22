@@ -146,11 +146,11 @@ void ReadXML(int *width, int *height, int *highscores){
 
     if( isHighscore )
     {
-        *Highscores = bHighscore;
+        *highscores = bHighscore;
     }
     else 
     {
-        *Highscores = 0;
+        *highscores = 0;
     }
 
     return;
