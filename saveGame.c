@@ -51,7 +51,8 @@ void SaveGame( int *width, int *height, int *highscores, int *numberOfPlay, int 
     }
 
     //If the player would like to continue playing
-    if( userChoiceSave == 'N' || userChoiceContinue == 'Y' )
+    if( userChoiceSave == 'N' || 
+       userChoiceContinue == 'Y' )
     {
         PrintArrayValue( height , width, scoreOne, scoreTwo, arr );
 
