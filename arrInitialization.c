@@ -7,7 +7,7 @@
  * @param width, the board's width
  * @param arr, the board represented as a 2D array
  */
-void arrInitialization( int height, int width, char arr[100][100] )
+void ArrInitialization(int height, int width, char arr[100][100])
 {
     for( int h = 0 ; h < height ; h++ )
     {

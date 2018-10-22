@@ -13,10 +13,10 @@
  * @param scoreTwo, the second player's score
  * @param arr, the game board represented in a 2-D array
  */
-void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, char arr[100][100])
+void PrintArrayValue(int *height , int *width, int *scoreOne, int *scoreTwo, char arr[100][100])
 {
-    int height = 0;
-    int width = 0;
+    int h = 0;
+    int w = 0;
 
     // treat this as a boolean
     // used to print out the column numbers on the top once
@@ -29,19 +29,19 @@ void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, cha
     printf( "\t\t\tPlayer 2's Score:  %d", *scoreTwo );
     printf( "\n\n" );
 
-    for( height = 0 ; height < *Height ; height++ )
+    for( h = 0 ; h < *height ; h++ )
     {
 
         // this will print out the column numbers ONCE only at the top
         // [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ] [ 6 ] [ 7 ]
-        for( width = 0 ; width < *Width && printedColumnNumbers == 0 ; width++ )
+        for( w = 0 ; w < *width && printedColumnNumbers == 0 ; w++ )
         {
-            printf( "[ %d ] ", width + 1 );
+            printf( "[ %d ] ", w + 1 );
         }
         printf( "\n" );
 
         // print out the top side of each box
-        for( width = 0 ; width < *Width ; width++ )
+        for( w = 0 ; w < *width ; w++ )
         {
             printf( "***** " );
         }
@@ -49,7 +49,7 @@ void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, cha
 
 
         // print out the first set of sides of each box
-        for( width = 0 ; width < *Width ; width++ )
+        for( w = 0 ; w < *width ; w++ )
         {
             printf( "*   * " );
         }
@@ -58,17 +58,17 @@ void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, cha
 
         // print out the game pieces that are in the box and the sides
         // X or O
-        for( width = 0 ; width < *Width ; width++ )
+        for( w = 0 ; w < *width ; w++ )
         {
             printf( "* " );
-            printf( "%c ", arr[height][width] );
+            printf( "%c ", arr[h][w] );
             printf( "* " );
         }
         printf( "\n" );
 
 
         // continue to fill the sides of each box
-        for( width = 0 ; width < *Width ; width++ )
+        for( w = 0 ; w < *width ; w++ )
         {
             printf( "*   * " );
         }
@@ -76,7 +76,7 @@ void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, cha
 
 
         // print out the bottom of the box
-        for( width = 0 ; width < *Width ; width++)
+        for( w = 0 ; w < *width ; w++)
         {
             printf( "***** " );
         }
