@@ -16,15 +16,15 @@
 //still creates errors in compilation but you will figure it out. --- AJAI
 
 //Jordan
-void player(
+void Player(
     char *playerInput , 
     int  *numberOfPlay , 
-    int  *Height, 
+    int  *height, 
     char arr[ 100 ][ 100 ],
 	char *arrSaveAction, 
     int  *savePlace, 
-    int  *Width, 
-    int  *Highscores, 
+    int  *width, 
+    int  *highscores, 
     int  *restorePlace, 
     int  *gameOut,
 	char whichPlayer, 
@@ -52,27 +52,27 @@ void player(
         *playerInput = playerInputInt; //this is bad because it screws with the values of th Undo call below
     }
 
-    if( *playerInput > 0  &&  *playerInput <= *Width )
+    if( *playerInput > 0  &&  *playerInput <= *width )
     {
         // Do nothingf
     }
     else if ( playerInput[ 0 ] == 'U' )
     {
-        Undo( savePlace, restorePlace, Height, Width, numberOfPlay, 
-              scoreOne, scoreTwo, Highscores, gameOut, whichPlayer, 
+        Undo( savePlace, restorePlace, height, width, numberOfPlay, 
+              scoreOne, scoreTwo, highscores, gameOut, whichPlayer, 
               arrSaveAction, arrRestorePlace, playerInput, arr );
         flag = 1;
     }
     else if ( playerInput[ 0 ] == 'R' )
     {
-        Redo( restorePlace, Height, Width, numberOfPlay, scoreOne, 
-              scoreTwo, gameOut, Highscores, savePlace, whichPlayer, 
+        Redo( restorePlace, height, width, numberOfPlay, scoreOne, 
+              scoreTwo, gameOut, highscores, savePlace, whichPlayer, 
               playerInput, arrRestorePlace, arr, arrSaveAction );
         flag = 1;
     }
     else if( playerInput[ 0 ] == 'S' )
     {
-        saveGame(Width, Height, Highscores, numberOfPlay, scoreOne, 
+        saveGame(width, height, highscores, numberOfPlay, scoreOne, 
               scoreTwo, gameOut, whichPlayer, savePlace, restorePlace, 
               arr, arrSaveAction, arrRestorePlace, playerInput);
         flag = 1;
@@ -82,38 +82,38 @@ void player(
         flag = 2;
     }
 
-    for( curRow = 0; curRow < *Height && flag == 0; curRow++ ) // Iterates through the selected column
+    for( curRow = 0; curRow < *height && flag == 0; curRow++ ) // Iterates through the selected column
     {
-        if( arr[ *Height - curRow - 1 ][ *playerInput-1 ] == 'X' || arr[ *Height - curRow - 1 ][ *playerInput-1 ] == 'O' ) // If the current 'spot' is filled by X or O
+        if( arr[ *height - curRow - 1 ][ *playerInput-1 ] == 'X' || arr[ *height - curRow - 1 ][ *playerInput-1 ] == 'O' ) // If the current 'spot' is filled by X or O
         {
            // Do nothing
         }
         else
         {
-            if ( curRow < *Height ) // This is always true ??
+            if ( curRow < *height ) // This is always true ??
             {
                 *restorePlace = 0;
                 if ( *numberOfPlay % 2 != 0 ) // If it is player 1's turn or player 2's turn
                 {
-                    arr[ *Height - curRow - 1 ][ *playerInput -1 ] = 'X';       // Set the space to X
+                    arr[ *height - curRow - 1 ][ *playerInput -1 ] = 'X';       // Set the space to X
                     arrSaveAction[ *savePlace ] = ( *playerInput- 1 );   // Add to array of completed moves
                     *savePlace += 1;                                 // Increase the index for the array of completed moves
-                    updateScore( *Height - curRow - 1 , *playerInput - 1, Width, Height, 
+                    updateScore( *height - curRow - 1 , *playerInput - 1, width, height, 
                                  numberOfPlay, scoreOne, scoreTwo, playerInput, arr );
                 }
                 else
                 {
                     if ( whichPlayer == 'H' ) // Checks if its human v human or human v computer
                     {
-                        arr[ *Height - curRow - 1 ][ *playerInput - 1 ] = 'O';     // Set the space to O
+                        arr[ *height - curRow - 1 ][ *playerInput - 1 ] = 'O';     // Set the space to O
                         arrSaveAction[ *savePlace ] = ( *playerInput - 1 );  // Add to array of completed moves
                         *savePlace += 1;                                // Increase the index for the array of completed moves
-                        updateScore( *Height - curRow - 1 , *playerInput - 1, Width, Height, 
+                        updateScore( *height - curRow - 1 , *playerInput - 1, width, height, 
                                      numberOfPlay, scoreOne, scoreTwo, playerInput, arr );
                     }
                     else
                     {
-                        computerPlayer(arr, Height, Width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput);
+                        computerPlayer(arr, height, width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput);
                     }
                 }
 
@@ -121,13 +121,13 @@ void player(
                 system("clear"); 
                 */
 
-                PrintArrayValue( Height, Width, scoreOne, scoreTwo, arr );
+                PrintArrayValue( height, width, scoreOne, scoreTwo, arr );
                 flag = 1; // This exits the loop
             }
         }
     }
-    if ( flag == 0 || flag == 2 ) //if flag = this mean curRow "counter" is bigger than *Height <<all the curRow is fulled
+    if ( flag == 0 || flag == 2 ) //if flag = this mean curRow "counter" is bigger than *height <<all the curRow is fulled
     {
-        playAgain( playerInput , numberOfPlay, Height, arr, arrSaveAction, savePlace, Width, Highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace ); 
+        playAgain( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace ); 
     }
 }

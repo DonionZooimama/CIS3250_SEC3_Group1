@@ -16,16 +16,16 @@
 //Jordan
 // Edit to allow same pre and post conditions.
 
-void ReadXML(int *Width, int *Height, int *Highscores){
+void ReadXML(int *width, int *height, int *highscores){
 
     FILE *fp;
     char curLine[555];
     int isWidth = 0;
     int isHeight = 0;
     int isHighscore = 0;
-    int width = 0;
-    int height = 0;
-    int highscore = 0;
+    int bWidth = 0;
+    int bHeight = 0;
+    int bHighscore = 0;
 
     fp = fopen( "data.xml", "r" );
 
@@ -83,9 +83,9 @@ void ReadXML(int *Width, int *Height, int *Highscores){
 
                     if( strncmp( curLine, "<Width>", 7 ) == 0 )
                     {
-                        width = atoi( valueStr );
+                        bWidth = atoi( valueStr );
 
-                        if( width != 0 )
+                        if( bWidth != 0 )
                         {
                             isWidth = 1;
                         }
@@ -96,9 +96,9 @@ void ReadXML(int *Width, int *Height, int *Highscores){
                     }
                     else if( strncmp( curLine, "<Height>", 8 ) == 0 )
                     {
-                        height = atoi( valueStr );
+                        bHeight = atoi( valueStr );
 
-                        if( height != 0 )
+                        if( bHeight != 0 )
                         {
                             isHeight = 1;
                         }
@@ -109,9 +109,9 @@ void ReadXML(int *Width, int *Height, int *Highscores){
                     }
                     else if( strncmp( curLine, "<Highscores>", 12 ) == 0 )
                     {
-                        highscore = atoi( valueStr );
+                        bHighscore = atoi( valueStr );
 
-                        if( highscore != 0 )
+                        if( bHighscore != 0 )
                         {
                             isHighscore = 1;
                         }
@@ -136,8 +136,8 @@ void ReadXML(int *Width, int *Height, int *Highscores){
 
     if( isWidth && isHeight )
     {
-        *Width = width;
-        *Height = height;
+        *width = bWidth;
+        *height = bHeight;
     }
     else 
     {
@@ -146,7 +146,7 @@ void ReadXML(int *Width, int *Height, int *Highscores){
 
     if( isHighscore )
     {
-        *Highscores = highscore;
+        *Highscores = bHighscore;
     }
     else 
     {
