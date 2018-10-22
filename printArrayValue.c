@@ -1,71 +1,90 @@
 #include "header.h"
 
 //Ronnie
-void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, char arr[100][100]) 
+
+/**
+ *  Date: October 8, 2018 - Ronnie Tran
+ *  Displays the board and its current state. For an example, it will show
+ *  all of the current game pieces that are on the board, the current scores for player 1 and player 2 and
+ *  give you options such as undo, redo and save.
+ * @param height, the board's height
+ * @param width, the board's width
+ * @param scoreOne, the first player's score
+ * @param scoreTwo, the second player's score
+ * @param arr, the game board represented in a 2-D array
+ */
+void PrintArrayValue(int *height , int *width, int *scoreOne, int *scoreTwo, char arr[100][100])
 {
-    int counter1 , counter2 ; 
-    int flag = 0;
+    int h = 0;
+    int w = 0;
 
-    printf("\n\n\t>> Connect 4 \"Have fun\" <<");
-    printf("\n\n\tScore one = %d",*scoreOne);
-    printf("\t\t\tScore Two = %d",*scoreTwo);
-    printf("\n\n");
+    // treat this as a boolean
+    // used to print out the column numbers on the top once
+    int printedColumnNumbers = 0;
 
-    for (counter1 = 0 ; counter1 < *Height ; counter1++)
+
+    // display the player scores
+    printf( "\n\n\t>> Connect 4 \"Have fun\" <<" );
+    printf( "\n\n\tPlayer 1's Score: %d", *scoreOne );
+    printf( "\t\t\tPlayer 2's Score:  %d", *scoreTwo );
+    printf( "\n\n" );
+
+    for( h = 0 ; h < *height ; h++ )
     {
 
-        for(counter2 = 0 ; counter2 < *Width && flag == 0; counter2++)
+        // this will print out the column numbers ONCE only at the top
+        // [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ] [ 6 ] [ 7 ]
+        for( w = 0 ; w < *width && printedColumnNumbers == 0 ; w++ )
         {
-            printf("[ %d ] ",counter2+1);
+            printf( "[ %d ] ", w + 1 );
         }
-        printf("\n");
+        printf( "\n" );
 
-        for(counter2 = 0 ; counter2 < *Width ; counter2++)
+        // print out the top side of each box
+        for( w = 0 ; w < *width ; w++ )
         {
-            printf("***** ");
+            printf( "***** " );
         }
+        printf( "\n" );
 
-        printf("\n");
-        for(counter2 = 0 ; counter2 < *Width ; counter2++)
+
+        // print out the first set of sides of each box
+        for( w = 0 ; w < *width ; w++ )
         {
-            printf("*   * ");
+            printf( "*   * " );
         }
+        printf( "\n" );
 
-        printf("\n");
-        for(counter2 = 0 ; counter2 < *Width ; counter2++)
+
+        // print out the game pieces that are in the box and the sides
+        // X or O
+        for( w = 0 ; w < *width ; w++ )
         {
-            printf("* ");
-
-            if (arr[counter1][counter2] == 'X')
-            {
-                printf("%c ",arr[counter1][counter2]);
-            }
-            else if (arr[counter1][counter2] == 'O')
-            {
-                printf("%c ",arr[counter1][counter2]);
-            }
-            else
-            {
-                printf("%c ",arr[counter1][counter2]);
-            }
-            printf("* ");
+            printf( "* " );
+            printf( "%c ", arr[h][w] );
+            printf( "* " );
         }
+        printf( "\n" );
 
-        printf("\n");
-        for(counter2 = 0 ; counter2 < *Width ; counter2++)
+
+        // continue to fill the sides of each box
+        for( w = 0 ; w < *width ; w++ )
         {
-            printf("*   * ");
+            printf( "*   * " );
         }
+        printf( "\n" );
 
-        printf("\n");
-        for(counter2 = 0 ; counter2 < *Width ; counter2++)
+
+        // print out the bottom of the box
+        for( w = 0 ; w < *width ; w++)
         {
-            printf("***** ");
+            printf( "***** " );
         }
 
-        flag = 1;
+        // set this variable to 1 so we don't print the column numbers again
+        printedColumnNumbers = 1;
     }
-    printf("\n\n(U) to make Undo");
-    printf("\n(R) to make Redo ");
-    printf("\n(S) to save\n");
+    printf( "\n\n(U) to make Undo" );
+    printf( "\n(R) to make Redo " );
+    printf( "\n(S) to save\n" );
 }
