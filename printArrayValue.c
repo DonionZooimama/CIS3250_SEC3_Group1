@@ -15,7 +15,8 @@
  */
 void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, char arr[100][100])
 {
-    int height, width;
+    int height = 0;
+    int width = 0;
 
     // treat this as a boolean
     // used to print out the column numbers on the top once
@@ -23,67 +24,67 @@ void PrintArrayValue(int *Height , int *Width, int *scoreOne, int *scoreTwo, cha
 
 
     // display the player scores
-    printf("\n\n\t>> Connect 4 \"Have fun\" <<");
-    printf("\n\n\tPlayer 1's Score: %d",*scoreOne);
-    printf("\t\t\tPlayer 2's Score:  %d",*scoreTwo);
-    printf("\n\n");
+    printf( "\n\n\t>> Connect 4 \"Have fun\" <<" );
+    printf( "\n\n\tPlayer 1's Score: %d", *scoreOne );
+    printf( "\t\t\tPlayer 2's Score:  %d", *scoreTwo );
+    printf( "\n\n" );
 
-    for (height = 0; height < *Height; height++)
+    for( height = 0 ; height < *Height ; height++ )
     {
 
         // this will print out the column numbers ONCE only at the top
         // [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ] [ 6 ] [ 7 ]
-        for(width = 0 ; width < *Width && printedColumnNumbers == 0; width++)
+        for( width = 0 ; width < *Width && printedColumnNumbers == 0 ; width++ )
         {
-            printf("[ %d ] ",width+1);
+            printf( "[ %d ] ", width + 1 );
         }
-        printf("\n");
+        printf( "\n" );
 
         // print out the top side of each box
-        for(width = 0 ; width < *Width ; width++)
+        for( width = 0 ; width < *Width ; width++ )
         {
-            printf("***** ");
+            printf( "***** " );
         }
-        printf("\n");
+        printf( "\n" );
 
 
         // print out the first set of sides of each box
-        for(width = 0 ; width < *Width ; width++)
+        for( width = 0 ; width < *Width ; width++ )
         {
-            printf("*   * ");
+            printf( "*   * " );
         }
-        printf("\n");
+        printf( "\n" );
 
 
         // print out the game pieces that are in the box and the sides
         // X or O
-        for(width = 0 ; width < *Width ; width++)
+        for( width = 0 ; width < *Width ; width++ )
         {
-            printf("* ");
-            printf("%c ",arr[height][width]);
-            printf("* ");
+            printf( "* " );
+            printf( "%c ", arr[height][width] );
+            printf( "* " );
         }
-        printf("\n");
+        printf( "\n" );
 
 
         // continue to fill the sides of each box
-        for(width = 0 ; width < *Width ; width++)
+        for( width = 0 ; width < *Width ; width++ )
         {
-            printf("*   * ");
+            printf( "*   * " );
         }
-        printf("\n");
+        printf( "\n" );
 
 
         // print out the bottom of the box
-        for(width = 0 ; width < *Width ; width++)
+        for( width = 0 ; width < *Width ; width++)
         {
-            printf("***** ");
+            printf( "***** " );
         }
 
         // set this variable to 1 so we don't print the column numbers again
         printedColumnNumbers = 1;
     }
-    printf("\n\n(U) to make Undo");
-    printf("\n(R) to make Redo ");
-    printf("\n(S) to save\n");
+    printf( "\n\n(U) to make Undo" );
+    printf( "\n(R) to make Redo " );
+    printf( "\n(S) to save\n" );
 }
