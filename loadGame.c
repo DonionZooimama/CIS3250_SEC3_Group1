@@ -1,69 +1,99 @@
 #include "header.h"
 
-//Ajai
-void loadGame(int *Width, int *Height, int *Highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, char *whichPlayer,
-			  int *savePlace, int *restorePlace, char arr[100][100])
+/*
+ * Oct 21, 2018
+ * 1015577
+ * Refactored by Ajai Gill
+ *
+ * int *width, *height, *highScores, *numberOfPlay, *scoreOne, *scoreTwo, *restorePlace, *savePlace: all needed to be inititialized when loading the save file.
+ * char *whichPlayer : needed to be initialized when loading save file.
+ * char arr[ 100 ][ 100 ] : used to initialize the board to the save file's board.
+ */
+
+void LoadGame( int *width,
+			   int *height,
+			   int *highScores,
+			   int *numberOfPlay,
+			   int *scoreOne,
+			   int *scoreTwo,
+			   char *whichPlayer,
+			   int *savePlace,
+			   int *restorePlace,
+			   char arr[ 100 ][ 100 ] )
 {
-    int counter , counter1  , flag = 0 ,counterX = 0 , counterO = 0;
-    FILE *file = fopen("saveGame.txt" , "r");
-    if ( file == NULL )
+    int i = 0;
+	int j = 0;
+	int numX = 0;
+	int numO = 0;
+	int loadError = 0;
+	
+    FILE *file = fopen( "saveGame.txt", "r" );
+	
+	//checks if there is a file named saveGame.txt.
+    if ( !file )
     {
-        flag = 1;
+        loadError = 1;
     }
     else
     {
-        fscanf(file,"%d %d %d %d",Width,Height,Highscores,numberOfPlay);
-        fscanf(file,"%d %d",scoreOne,scoreTwo);
-        fscanf(file,"%s",whichPlayer);
-
-        for(counter = 0; counter < *Height ; counter++)
+		//obtains the data in the save file.
+        fscanf( file, "%d %d %d %d", width, height, highScores, numberOfPlay );
+        fscanf( file, "%d %d", scoreOne, scoreTwo );
+        fscanf( file, "%s", whichPlayer );
+	
+		//recreates the board in the arr array.
+        for( i = 0 ; i < *height ; i++ )
         {
-            for(counter1 = 0; counter1 < *Width ; counter1++)
+            for( j = 0 ; j < *width ; j++ )
             {
-                fscanf(file," %c ",&arr[counter][counter1]);
-                if (arr[counter][counter1] == 'X')
+                fscanf( file," %c ",&arr[ i ][ j ] );
+				
+                if ( arr[ i ][ j ] == 'X' )
                 {
-                    counterX++;
+                    numX++;
                 }
-                else if (arr[counter][counter1] == 'O')
+                else if ( arr[ i ][ j ] == 'O' )
                 {
-                    counterO++;
+                    numO++;
                 }
             }
         }
     }
+	
     fclose(file);
-    if (*Width < 3 || *Width > 12 || *Height < 3 || *Height > 12)
+	
+	//checks if the file is changed and warns the program if there is an error in the file
+    if ( *width < 3 || *width > 12 || *height < 3 || *height > 12 )
     {
-        flag = 1;
+        loadError = 1;
     }
-    if ( *numberOfPlay % 2 == 0 && (counterX-1 != counterO || counterX*2 != *numberOfPlay) )
+    else if ( *numberOfPlay % 2 == 0 && ( numX-1 != numO || ( numX * 2 ) != *numberOfPlay ) )
     {
-        flag = 1;
+        loadError = 1;
     }
-    if ( *numberOfPlay % 2 != 0 && (counterX != counterO || counterX*2+1 != *numberOfPlay ))
+    else if ( *numberOfPlay % 2 != 0 && ( numX != numO || ( numX * 2 + 1 ) != *numberOfPlay ) )
     {
-        flag = 1;
+        loadError = 1;
     }
-    if ( (*scoreOne >= 0  && *scoreOne <= 50) && (*scoreTwo >= 0 && *scoreTwo <= 50) )
+    else if ( ( *scoreOne < 0  || *scoreOne > 50 ) && ( *scoreTwo < 0 || *scoreTwo > 50 ) )
     {
-        
+        loadError = 1;
     }
-    else
+	
+	//if there is an error in loading the game it creates a new game
+    if ( loadError == 1 )
     {
-        flag = 1;
-    }
-    if (flag == 1)
-    {
-        printf("\n\t >> Human vs. Human << \n OR \n\t >> Human vs. Computer <<\n");
-        printf("\n>>Enter (H) if two player && (C) if one player\n");
+		printf( "\nyour save file is damaged/corrupted or doesn't exist!!!\n\n" );
+		
+        printf( "\n\t >> Human vs. Human << \n OR \n\t >> Human vs. Computer <<\n" );
+        printf( "\n>>Enter (H) if two player && (C) if one player\n" );
 
-        scanf("%s",whichPlayer);
+        scanf( "%s", whichPlayer );
 
-        while (*whichPlayer != 'H' && *whichPlayer != 'C')
+        while ( *whichPlayer != 'H' && *whichPlayer != 'C' )
         {
-            printf("\nsome thing error please enter again\n");
-            scanf("%s",whichPlayer);
+            printf( "\n>>Enter (H) if two player && (C) if one player\n" );
+            scanf( "%s", whichPlayer );
         }
 		
         *numberOfPlay = 1;
@@ -71,6 +101,9 @@ void loadGame(int *Width, int *Height, int *Highscores, int *numberOfPlay, int *
 		*restorePlace = 0;
 		*scoreOne = 0;
 		*scoreTwo = 0;
+		
+		ReadXML( width, height, highScores );
+        ArrInitialization( *height, *width, arr );
         
     }
 }

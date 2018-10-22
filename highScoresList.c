@@ -18,6 +18,7 @@ void HighScoresList( int readOrWrite, int *highScoreList, int *listLength, int *
     {
         FILE *file = fopen( "Highscores.txt", "r" );
         while( fscanf( file, "%d", &highScoreList[ *listLength ] ) != EOF )
+
         {
             *listLength += 1;
         }
@@ -56,6 +57,7 @@ void HighScoresList( int readOrWrite, int *highScoreList, int *listLength, int *
         {
             fprintf( file, "%d\n", highScoreList[ i ] );
             printf( "\n%d", highScoreList[ i ] );
+
         }
         fclose( file );
     }
@@ -64,6 +66,7 @@ void HighScoresList( int readOrWrite, int *highScoreList, int *listLength, int *
         for( int i = 0 ; i < *listLength ; i++ )
         {
             printf( "%d\n", highScoreList[ i ] );
+
         }
     }
 }
