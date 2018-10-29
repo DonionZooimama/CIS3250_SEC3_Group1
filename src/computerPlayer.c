@@ -48,7 +48,7 @@ void ComputerPlayer( char arr[100][100], int *height, int *width, int *restorePl
                     //Sets the board location to 'O'
                     arr[ *height - row - 1 ][ randomPlay ] = 'O';
                     arrSaveAction[ *savePlace ] = ( randomPlay );
-                    *savePlace++; //savePlave is incremented
+                    *savePlace += 1; //savePlave is incremented
                     UpdateScore( *height - row - 1 , randomPlay, width, height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr ); //Score is updated
 
                     PrintArrayValue( height, width, scoreOne, scoreTwo, arr );

@@ -31,7 +31,7 @@ void Undo( int *savePlace, int *restorePlace, int *height, int *width, int *numb
                 ||  arr[ counter ][ noOfCol ] == 'O' )
             {
                 //updates the board, and decreases the move number
-                *numberOfPlay--;
+                *numberOfPlay -= 1;
                 UpdateScore( counter, noOfCol, width, height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr );
                 arr[ counter ][ noOfCol ] = '-';
                 
@@ -67,7 +67,7 @@ void Undo( int *savePlace, int *restorePlace, int *height, int *width, int *numb
         printf( "\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8" );
         printf( "\t player1<<Enter your play>> = " );
         scanf( "%s", playerInput );
-        Player( &noOfCol, numberOfPlay, height, arr, arrSaveAction, savePlace, width, highScores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
+        Player( playerInput, numberOfPlay, height, arr, arrSaveAction, savePlace, width, highScores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
 
     }
 } //undo end
