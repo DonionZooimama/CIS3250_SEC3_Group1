@@ -1,38 +1,61 @@
+/*
+ *Group: CIS3250 SEC_3 Group_1
+ *Lab Time: Monday, 8:30 A.M - 11:20 A.M
+ *Team Member who edited this function: William Moskal (1011940)
+ *Edits: Changed the code to better adhere with the team coding convention. Edits included: changing function names to total camel case,
+ *Adding whitespace on either side of Identifiers for better readability, commenting, changing variable declarations to be on their own
+ *lines, and putting complicated expressions on their own lines.
+ */
+
 #include "header.h"
 
-//Wil
-void computerPlayer(char arr[100][100], int *Height, int *Width, int *restorePlace, char *arrSaveAction, int *savePlace, int *scoreOne, int *scoreTwo, int *numberOfPlay,
-					char *playerInput)
-{
-    int row , randomPlay ; 
-    int flag = 0; 
+/*
+ *The variables which are not defined (formerly global variables) are: width, height, arr[], restorePlace and savePlace
+ */
 
-    while (flag == 0)
+void ComputerPlayer( char arr[100][100], int *height, int *width, int *restorePlace,
+                    char *arrSaveAction, int *savePlace, int *scoreOne, int *scoreTwo, int *numberOfPlay,
+                    char *playerInput )
+{ //ComputerPlayer start
+    
+    int row = 0;
+    int randomPlay = 0;
+    int flag = 0;
+    
+    //checks if flag is equal to 0
+    while ( flag == 0 )
     {
-        randomPlay = rand() % (*Width) ;
-
-        for(row = 0 ; row < *Height && flag == 0; row++)
+        //creates a random play
+        randomPlay = rand() % ( *width );
+        
+        //loops from 0 to the height of the board
+        for( row = 0 ; row < *height && flag == 0; row++ )
         {
-
-            if(arr[*Height-row-1][randomPlay]== 'X' || arr[*Height-row-1][randomPlay] == 'O')
+            
+            //If the board position has a piece already, then do nothing
+            if( arr[ *height - row - 1 ][ randomPlay ] == 'X'
+               || arr[ *height - row - 1 ][ randomPlay ] == 'O' )
             {
-               
+                
             }
-
-    else
+            
+            //otherwise, the board space is populated with an '0', In other words, the computer places a piece
+            else
             {
-                if (row < *Height)
+                if ( row < *height )
                 {
                     *restorePlace = 0;
-                    arr[*Height-row-1][randomPlay] = 'O';
-                    arrSaveAction[*savePlace] = (randomPlay);
-                    *savePlace += 1;
-                    updateScore(*Height-row-1 , randomPlay, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
-                    system("cls");
-                    PrintArrayValue(Height, Width, scoreOne, scoreTwo, arr);
+                    //Sets the board location to 'O'
+                    arr[ *height - row - 1 ][ randomPlay ] = 'O';
+                    arrSaveAction[ *savePlace ] = ( randomPlay );
+                    *savePlace++; //savePlave is incremented
+                    UpdateScore( *height - row - 1 , randomPlay, width, height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr ); //Score is updated
+
+                    system( "cls" );
+                    PrintArrayValue( height, width, scoreOne, scoreTwo, arr );
                     flag = 1;
                 }
             }
         }
     }
-}
+} //ComputerPlayer end
