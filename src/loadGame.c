@@ -33,6 +33,7 @@ void LoadGame( int *width,
     if ( !file )
     {
         loadError = 1;
+		printf("bro no file");
     }
     else
     {
@@ -67,7 +68,7 @@ void LoadGame( int *width,
     {
         loadError = 1;
     }
-    else if ( *numberOfPlay % 2 == 0 && ( numX-1 != numO || ( numX * 2 ) != *numberOfPlay ) )
+    else if ( *numberOfPlay % 2 == 0 && ( numX - 1 != numO || ( numX * 2 ) != *numberOfPlay ) )
     {
         loadError = 1;
     }
