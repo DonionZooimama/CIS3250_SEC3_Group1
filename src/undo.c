@@ -15,15 +15,15 @@ void Undo( int *savePlace, int *restorePlace, int *height, int *width, int *numb
     //Variable declaration and initialization
     int counter = 0;
     int flag = 0;
-    char noOfCol = 0;
+    int noOfCol = 0;
     
     //If the save place is null, nothing hapens. In other words if there has not been a save yet, nothing happens. Otherwise, the save place is decreased, and the previous turn is reversed.
     if ( *savePlace != 0 )
     {
-        *savePlace--;
+        *savePlace -= 1;
         noOfCol = arrSaveAction[ *savePlace ];
         arrRestorePlace[ *restorePlace ] = noOfCol;
-        *restorePlace++;
+        *restorePlace += 1;
         
         for ( counter = 0 ; counter < *height && flag == 0 ; counter++ )
         {
