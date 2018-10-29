@@ -117,10 +117,6 @@ void Player(
                     }
                 }
 
-                /* Would clear terminal between turns
-                system("clear"); 
-                */
-
                 PrintArrayValue( height, width, scoreOne, scoreTwo, arr );
                 flag = 1; // This exits the loop
             }
