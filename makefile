@@ -1,43 +1,46 @@
 All: updateScore undo saveGame redo readXML printArrayValue player playAgain loadGame highScoresList computerPlayer arrInitialization
 
-main: main.c header.h
-	gcc -Wall -pedantic -std=c11 main.c  updateScore.o undo.o saveGame.o redo.o readXML.o printArrayValue.o player.o playAgain.o loadGame.o highScoresList.o computerPlayer.o arrInitialization.o -o main
+main:
+	gcc -Wall -pedantic -std=c11 bin/*.o src/main.c -o bin/main -Iincludes
 
-updateScore: updateScore.c header.h
-	gcc -Wall -pedantic -std=c11 -c updateScore.c -o updateScore.o
+test:
+	gcc -Wall -pedantic -std=c11 src/*.c -o bin/main -Iincludes
+
+updateScore: 
+	gcc -Wall -pedantic -std=c11 -c src/updateScore.c -o bin/updateScore.o -Iincludes
 	
-undo: undo.c header.h
-	gcc -Wall -pedantic -std=c11 -c undo.c -o undo.o
+undo: 
+	gcc -Wall -pedantic -std=c11 -c src/undo.c -o bin/undo.o -Iincludes
 	
-saveGame: saveGame.c header.h
-	gcc -Wall -pedantic -std=c11 -c saveGame.c -o saveGame.o
+saveGame: 
+	gcc -Wall -pedantic -std=c11 -c src/saveGame.c -o bin/saveGame.o -Iincludes
 	
-redo: redo.c header.h
-	gcc -Wall -pedantic -std=c11 -c redo.c -o redo.o
+redo: 
+	gcc -Wall -pedantic -std=c11 -c src/redo.c -o bin/redo.o -Iincludes
 	
-readXML: readXML.c header.h
-	gcc -Wall -pedantic -std=c11 -c readXML.c -o readXML.o
+readXML: 
+	gcc -Wall -pedantic -std=c11 -c src/readXML.c -o bin/readXML.o -Iincludes
 	
-printArrayValue: printArrayValue.c header.h
-	gcc -Wall -pedantic -std=c11 -c printArrayValue.c -o printArrayValue.o
+printArrayValue:
+	gcc -Wall -pedantic -std=c11 -c src/printArrayValue.c -o bin/printArrayValue.o -Iincludes
 	
-player: player.c header.h
-	gcc -Wall -pedantic -std=c11 -c player.c -o player.o
+player:
+	gcc -Wall -pedantic -std=c11 -c src/player.c -o bin/player.o -Iincludes
 	
-playAgain: playAgain.c header.h
-	gcc -Wall -pedantic -std=c11 -c playAgain.c -o playAgain.o
+playAgain:
+	gcc -Wall -pedantic -std=c11 -c src/playAgain.c -o bin/playAgain.o -Iincludes
 	
-loadGame: loadGame.c header.h
-	gcc -Wall -pedantic -std=c11 -c loadGame.c -o loadGame.o
+loadGame: 
+	gcc -Wall -pedantic -std=c11 -c src/loadGame.c -o bin/loadGame.o -Iincludes
 	
-highScoresList: highScoresList.c header.h
-	gcc -Wall -pedantic -std=c11 -c highScoresList.c -o highScoresList.o
+highScoresList:
+	gcc -Wall -pedantic -std=c11 -c src/highScoresList.c -o bin/highScoresList.o -Iincludes
 	
-computerPlayer: computerPlayer.c header.h
-	gcc -Wall -pedantic -std=c11 -c computerPlayer.c -o computerPlayer.o
+computerPlayer:
+	gcc -Wall -pedantic -std=c11 -c src/computerPlayer.c -o bin/computerPlayer.o -Iincludes
 	
-arrInitialization: arrInitialization.c header.h
-	gcc -Wall -pedantic -std=c11 -c arrInitialization.c -o arrInitialization.o
+arrInitialization:
+	gcc -Wall -pedantic -std=c11 -c src/arrInitialization.c -o bin/arrInitialization.o -Iincludes
 	
 clean:
-	rm *.o
+	rm bin/*

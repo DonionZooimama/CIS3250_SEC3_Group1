@@ -72,7 +72,7 @@ void Player(
     }
     else if( playerInput[ 0 ] == 'S' )
     {
-        saveGame(width, height, highscores, numberOfPlay, scoreOne, 
+        SaveGame(width, height, highscores, numberOfPlay, scoreOne, 
               scoreTwo, gameOut, whichPlayer, savePlace, restorePlace, 
               arr, arrSaveAction, arrRestorePlace, playerInput);
         flag = 1;
@@ -98,7 +98,7 @@ void Player(
                     arr[ *height - curRow - 1 ][ *playerInput -1 ] = 'X';       // Set the space to X
                     arrSaveAction[ *savePlace ] = ( *playerInput- 1 );   // Add to array of completed moves
                     *savePlace += 1;                                 // Increase the index for the array of completed moves
-                    updateScore( *height - curRow - 1 , *playerInput - 1, width, height, 
+                    UpdateScore( *height - curRow - 1 , *playerInput - 1, width, height, 
                                  numberOfPlay, scoreOne, scoreTwo, playerInput, arr );
                 }
                 else
@@ -108,12 +108,12 @@ void Player(
                         arr[ *height - curRow - 1 ][ *playerInput - 1 ] = 'O';     // Set the space to O
                         arrSaveAction[ *savePlace ] = ( *playerInput - 1 );  // Add to array of completed moves
                         *savePlace += 1;                                // Increase the index for the array of completed moves
-                        updateScore( *height - curRow - 1 , *playerInput - 1, width, height, 
+                        UpdateScore( *height - curRow - 1 , *playerInput - 1, width, height, 
                                      numberOfPlay, scoreOne, scoreTwo, playerInput, arr );
                     }
                     else
                     {
-                        computerPlayer(arr, height, width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput);
+                        ComputerPlayer(arr, height, width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput);
                     }
                 }
 
@@ -128,6 +128,6 @@ void Player(
     }
     if ( flag == 0 || flag == 2 ) //if flag = this mean curRow "counter" is bigger than *height <<all the curRow is fulled
     {
-        playAgain( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace ); 
+        PlayAgain( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace ); 
     }
 }

@@ -60,7 +60,7 @@ void SaveGame( int *width, int *height, int *highscores, int *numberOfPlay, int 
             printf( "\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`" );
             printf( "\tplayer2<<Enter your play>> = " );
             scanf( "%s", playerInput );
-            player( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores,
+            Player( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores,
             restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
         }
         else
@@ -68,7 +68,7 @@ void SaveGame( int *width, int *height, int *highscores, int *numberOfPlay, int 
             printf( "\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8" );
             printf( "\t player1<<Enter your play>> = " );
             scanf( "%s", playerInput );
-            player( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores, 
+            Player( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores, 
             restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
         }
     }

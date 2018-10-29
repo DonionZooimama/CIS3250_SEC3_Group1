@@ -22,7 +22,7 @@ void Undo(int *savePlace, int *restorePlace, int *Height, int *Width, int *numbe
             if (arr[counter][noOfCol] == 'X' ||  arr[counter][noOfCol] == 'O')
             {
                 *numberOfPlay -= 1;
-                updateScore(counter , noOfCol, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
+                UpdateScore(counter , noOfCol, Width, Height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr);
                 arr[counter][noOfCol] = '-';
 
                 flag = 1;
@@ -39,11 +39,11 @@ void Undo(int *savePlace, int *restorePlace, int *Height, int *Width, int *numbe
             printf("\n ,---.\n/ o o \\ \n\\ \\_/ /\n `---`");
             printf("\tplayer2<<Enter your play>> = ");
             scanf("%s",playerInput);
-            player(playerInput , numberOfPlay, Height, arr, arrSaveAction, savePlace, Width, Highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace);
+            Player(playerInput , numberOfPlay, Height, arr, arrSaveAction, savePlace, Width, Highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace);
         }
         else
         {
-            computerPlayer(arr, Height, Width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput);
+            ComputerPlayer(arr, Height, Width, restorePlace, arrSaveAction, savePlace, scoreOne, scoreTwo, numberOfPlay, playerInput);
         }
     }
     else
@@ -51,6 +51,6 @@ void Undo(int *savePlace, int *restorePlace, int *Height, int *Width, int *numbe
         printf("\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8");
         printf("\t player1<<Enter your play>> = ");
         scanf("%s",playerInput);
-        player(playerInput , numberOfPlay, Height, arr, arrSaveAction, savePlace, Width, Highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace);
+        Player(playerInput , numberOfPlay, Height, arr, arrSaveAction, savePlace, Width, Highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace);
     }
 } 
