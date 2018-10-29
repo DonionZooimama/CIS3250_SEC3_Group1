@@ -3,7 +3,7 @@
 int main(int argc, char** argv){
 	char arr[ 100 ][ 100 ];
 	char arrSaveAction[ 100 ] = { 0 }; 
-	char arrRestorePlace[100] = { 0 }; 
+	char arrRestorePlace[ 100 ] = { 0 }; 
 	char playerInput[ 20 ];
 	char whichPlayer = ' ';
 	char userChoice = 'C';
@@ -22,32 +22,36 @@ int main(int argc, char** argv){
 	int listLength = 0;
 	int flag = 0;
 
-    while ( userChoice =='C' )
+    while ( userChoice == 'C' )
     {
         printf( "\nIf You Want To Load The Saved Game >> Enter L <<Else Enter Any thing " );
-        fgets( &option, 3, stdin );
+        scanf( "%s", &option );
 
         if ( option == 'L' )
         {
-            LoadGame( &width, &height, &highscores, &numberOfPlay, &scoreOne, &scoreTwo, &whichPlayer, &savePlace, &restorePlace, arr );
-	       ReadXML( &width, &height, &highscores );
-	       ArrInitialization( height, width, arr );
+           LoadGame( &width, &height, &highscores, &numberOfPlay, &scoreOne, &scoreTwo, &whichPlayer, &savePlace, &restorePlace, arr );
         }
         else
         {
             printf( "\n\t >> Human vs. Human << \n OR \n\t >> Human vs. Computer <<\n" );
             printf( "\n>>Enter (H) if two player && (C) if one player\n" );
-			fgets( &whichPlayer, 3, stdin );
+			scanf( "%s", &whichPlayer );
 
             while ( whichPlayer != 'H' && whichPlayer != 'C' )
             {
                 printf( "\nsome thing error please enter again\n" );
-                scanf( "%s",&whichPlayer );
+                scanf( "%s", &whichPlayer );
             }
+			numberOfPlay = 1;
+			savePlace = 0;
+			restorePlace = 0;
+			scoreOne = 0;
+			scoreTwo = 0;
             ReadXML(&width, &height, &highscores);
             ArrInitialization(height, width, arr);
         }
-
+		gameOut = 0;
+		printf("\n\nnumber of play: %d\n\n", numberOfPlay);
         while ( width * height >= numberOfPlay && gameOut != 1 )
         {
             PrintArrayValue( &height, &width, &scoreOne, &scoreTwo, arr );
@@ -81,7 +85,7 @@ int main(int argc, char** argv){
         }
 
         PrintArrayValue( &height, &width, &scoreOne, &scoreTwo, arr );
-        if ( numberOfPlay-1 == width*height )
+        if ( numberOfPlay - 1 == width * height )
         {
             if ( scoreOne > scoreTwo )
             {
@@ -101,9 +105,10 @@ int main(int argc, char** argv){
                 HighScoresList( flag, highScoreList, &listLength, &highscores, scoreOne, scoreTwo );
             }
             printf( "\n\nYou Want To Continue Enter C else Enter any thing " );
-            scanf( "\n%s", &userChoice );
+            scanf( "%s", &userChoice );
         }
 
     return 0;
 }
+
 
