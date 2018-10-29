@@ -132,3 +132,4 @@ void Player(
         PlayAgain( playerInput , numberOfPlay, height, arr, arrSaveAction, savePlace, width, highscores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace ); 
     }
 }
+

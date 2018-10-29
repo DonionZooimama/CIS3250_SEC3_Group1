@@ -51,7 +51,6 @@ void ComputerPlayer( char arr[100][100], int *height, int *width, int *restorePl
                     *savePlace++; //savePlave is incremented
                     UpdateScore( *height - row - 1 , randomPlay, width, height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr ); //Score is updated
 
-                    system( "cls" );
                     PrintArrayValue( height, width, scoreOne, scoreTwo, arr );
                     flag = 1;
                 }

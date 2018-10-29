@@ -9,22 +9,16 @@
 
 #include "header.h"
 
-void Undo( int *savePlace, int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *highScores, int *gameOut, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[100][100] )
+void Undo( int *savePlace, int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *highScores, int *gameOut, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[ 100 ][ 100 ] )
 { //Undo Start
     
     //Variable declaration and initialization
     int counter = 0;
     int flag = 0;
-    int noOfCol = 0;
+    char noOfCol = 0;
     
-    //If the save place is null, nothing hapens. In other words if there has not been a save yet, nothing happens.
-    if ( *savePlace == 0 )
-    {
-        
-    }
-    
-    //otherwise, the save place is decreased, and the previous turn is reversed.
-    else
+    //If the save place is null, nothing hapens. In other words if there has not been a save yet, nothing happens. Otherwise, the save place is decreased, and the previous turn is reversed.
+    if ( *savePlace != 0 )
     {
         *savePlace--;
         noOfCol = arrSaveAction[ *savePlace ];
@@ -46,7 +40,6 @@ void Undo( int *savePlace, int *restorePlace, int *height, int *width, int *numb
         }
     }
     
-    system( "cls" );
     PrintArrayValue( height, width, scoreOne, scoreTwo, arr );
     
     // if it is an even numbered turn
@@ -74,7 +67,7 @@ void Undo( int *savePlace, int *restorePlace, int *height, int *width, int *numb
         printf( "\n  |||||\n 0 . . 0\n0   ^   0\n0  \\_/  0\n 0     0\n  00000\n   888\n    8" );
         printf( "\t player1<<Enter your play>> = " );
         scanf( "%s", playerInput );
-        Player( noOfCol, numberOfPlay, height, arr, arrSaveAction, savePlace, width, highScores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
+        Player( &noOfCol, numberOfPlay, height, arr, arrSaveAction, savePlace, width, highScores, restorePlace, gameOut, whichPlayer, scoreOne, scoreTwo, arrRestorePlace );
 
     }
 } //undo end
