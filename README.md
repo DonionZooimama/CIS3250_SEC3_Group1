@@ -60,4 +60,5 @@ again, choose to exit the program and re-run it if you would like to play again.
 - The highscores list doesn’t work.
 
 
-Link to review done by Sec3Group2: https://trello.com/c/45raBZw7
+Link to individual reviews done by Sec3Group2: https://trello.com/c/45raBZw7
+Link to team review done by Sec3Group2: https://trello.com/c/8SJr73BV
