@@ -118,16 +118,77 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
     }
     else {
     	err[test_number].success = false;
+	strcpy(err[test_number].message, "");
     	// Additional for handling specific errors
-    	if(){
-
+    	if(playerInput != playerInput_out){
+		sprintf(err[test_number].message, "Expected output: %d, actual output: %d\n", playerInput, playerInput_out);
     	}
-    	else if(){
-
+        if(numberOfPlay != numberOfPlay_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", numberOfPlay, numberOfPlay_out);
+		strcat(err[test_number].message, buffer);
     	}
-    	else {
+        if( height= height_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", height, height_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(arrSaveAction != arrSaveAction_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", arrSaveAction, arrSaveAction_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(savePlace != savePlace_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", savePlace, savePlace_out);
+		strcat(err[test_number].message, buffer);
+	}
+         if(width != width_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", width, width_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(highScores != highScores_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", highScores, highScores_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(restorePlace != restorePlace_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", restorePlace, restorePlace_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(gameOut != gameOut_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", gameOut, gameOut_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(whichPlayer != whichPlayer_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", whichPlayer, whichPlayer_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(scoreOne != scoreOne_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", scoreOne, scoreOne_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(scoreTwo != scoreTwo_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", scoreTwo, scoreTwo_out);
+		strcat(err[test_number].message, buffer);
+	}
+        if(arrRestorePlace != arrRestorePlace_out){
+		char buffer[500] = "";
+	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", arrRestorePlace, arrRestorePlace_out);
+		strcat(err[test_number].message, buffer);
+	}
 
-    	}
+
+
+
+
+	   	
     }
 
     &test_number++;
