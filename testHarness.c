@@ -4,12 +4,15 @@
 #include <stdbool.h>
 
 void* ResetVariables(
-	char *playerInput, int  *numberOfPlay, int  *height, char arr[ 100 ][ 100 ],
-	char *arrSaveAction, int  *savePlace, int  *width, int  *highscores, 
-    int  *restorePlace, int  *gameOut, char whichPlayer, int  *scoreOne, 
-    int  *scoreTwo, char *arrRestorePlace);
+	char arr[ 100 ][ 100 ], char *arrSaveAction, int  *savePlace, int  *highscores, int  *restorePlace, 
+	int  *gameOut, int  *scoreOne, int  *scoreTwo, char *arrRestorePlace);
 char* PrintResult(const Error to_print);
 void ArrInitialization(int height, int width, char arr[100][100]);
+//STuBzzZzZ
+void Undo(int *savePlace, int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *highscores, int *gameOut, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[100][100]);
+void Redo(int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, int *highscores, int *savePlace, char whichPlayer, char *playerInput, char *arrRestorePlace, char arr[100][100], char *arrSaveAction);
+void SaveGame(int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, char whichPlayer, int *savePlace, int *restorePlace, char arr[100][100], char *arrSaveAction, char *arrRestorePlace, char *playerInput);
+
 
 // CHECK TO CODING CONVENTION
 
@@ -29,6 +32,31 @@ typedef struct error_code {
 
 int main(int argc, char** argv){
 
+	int amtOfTests = 1;
+
+	int cur_test_num = 0;
+ 
+    Error err[amtOfTests];
+    
+
+
+    // Print test results
+    for(int i = 0; i < amtOfTests; i++){
+    	char* res = PrintResult((const)err[i]);
+    	if(res != NULL){
+    		printf("%s\n", res);
+    		free(res);
+    	}
+    	else {
+    		printf("Error printing results of test %d\n", (i+1));
+    	}
+    }
+}
+
+
+int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int height, int width, char whichPlayer, 
+		   char playerInput_out, int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out
+		   ){
 /*
 	
 	=>	Test Variables for Player
@@ -47,93 +75,49 @@ int main(int argc, char** argv){
     int  *scoreTwo, 		=> Default:  0
     char *arrRestorePlace	=> Default: '0'
 */
-	
-	char playerInput; 
-    int  numberOfPlay; 
-    int  height;
+ 
     char arr[ 100 ][ 100 ];
 	char arrSaveAction;
     int  savePlace; 
-    int  width;
     int  highscores;
     int  restorePlace; 
     int  gameOut;
-	char whichPlayer; 
     int  scoreOne; 
     int  scoreTwo;
     char arrRestorePlace;
 
-    // Initialize the error messages
-    int curTest = 0;
-    int amtOfTests = 1;
-    Error err[amtOfTests];
-    for(int i = 0; i < amtOfTests; i++){
-    	err[i].testNum = i+1;
-    }
-
-
-    /*
-    Ideally the below code would run through a loop to set all of the error structs
-    then they could be iterated and printed at the end. Due to the fact that the Player
-    function runs completely on a lot of pointers, I cant think of a way to do that.
-    My initial thought was to create a 2D character array of the success conditions
-    of each variable for each test:
-
-    e.g successConditions[testNum][varNum]
-    	successConditions[4][7] would give the successful value of width in test 5
-
-	This seems like it is waaaay too many variables to keep track of though so we
-	may just have to hardcode each test we do.
-	
-	Either way, I layed out the basic test structure as follows:
-	1. Reset all the variables to a default value
-	2. Set the variables that affect code logic (hardcoded for now)
-	3. Initialize the board based on your height and width.
-	   NOTE: If we want to alter the board before the test, that must
-	   		 be done manually unfortunatelyu.
-	4. Run player function with desired values
-	5. Compare altered values to check for success/failure and set error messages
-	6. Increase curTest by 1
-	7. (Ideally) Repeat.
-	*/
 
     // TEST ONE
-    ResetVariables(&playerInput, &numberOfPlay, &height, &arrSaveAction,
-    			   &savePlace, &width, &highscores, &restorePlace, &gameOut, 
-    			   &whichPlayer, &scoreOne, &scoreTwo, &arrRestorePlace);
-
-    playerInput = 
-    numberOfPlay = 
-    height =
-    width = 
-    whichPlayer = 
+    ResetVariables(&arrSaveAction, &savePlace, &highscores, &restorePlace, &gameOut, &scoreOne, &scoreTwo, &arrRestorePlace);
     ArrInitialization(height, width, arr);
 
-    Player( playerInput , &numberOfPlay, &height, arr, arrSaveAction, &savePlace, &width, &highscores, 
-        	            &restorePlace, &gameOut, whichPlayer, &scoreOne, &scoreTwo, arrRestorePlace );
 
+    Player( &playerInput , &numberOfPlay, &height, arr, arrSaveAction, &savePlace, &width, &highscores, 
+        	            &restorePlace, &gameOut, &whichPlayer, &scoreOne, &scoreTwo, arrRestorePlace );
+
+    err[test_number].testNum = test_number + 1;
     // Check all variables for the success 
     if(
-    	playerInput     == XX  &&
-    	numberOfPlay    == XX  &&
-    	height          == XX  &&
-		arrSaveAction   == XX  &&
-    	savePlace       == XX  &&
-    	width           == XX  &&
-    	highscores      == XX  &&
-    	restorePlace    == XX  &&
-    	gameOut         == XX  &&
-		whichPlayer     == XX  &&
-    	scoreOne        == XX  &&
-    	scoreTwo        == XX  &&
-    	arrRestorePlace == XX  ){
+    	playerInput     == playerInput_out    &&
+    	numberOfPlay    == numberOfPlay_out   &&
+    	height          == height_out         &&
+		arrSaveAction   == arrSaveAction_out  &&
+    	savePlace       == savePlace_out      &&
+    	width           == width_out          &&
+    	highscores      == highscores_out     &&
+    	restorePlace    == restorePlace_out   &&
+    	gameOut         == gameOut_out        &&
+		whichPlayer     == whichPlayer_out    &&
+    	scoreOne        == scoreOne_out       &&
+    	scoreTwo        == scoreTwo_out       &&
+    	arrRestorePlace == arrRestorePlace_out  ){
 
-    	err[curTest].success = true;
-    	strcpy(err[curTest].location, "");
-    	strcpy(err[curTest].message, "Test 1 passed.");
+    	err[test_number].success = true;
+    	strcpy(err[test_number].location, "");
+    	strcpy(err[test_number].message, "Test 1 passed.");
     }
     else {
-    	err[curTest].success = false;
+    	err[test_number].success = false;
     	// Additional for handling specific errors
     	if(){
 
@@ -146,21 +130,7 @@ int main(int argc, char** argv){
     	}
     }
 
-    curTest++;
-    
-
-
-    // Print test results
-    for(int i = 0; i < amtOfTests; i++){
-    	char* res = PrintResult((const)err[i]);
-    	if(res != NULL){
-    		printf("%s\n", res);
-    		free(res);
-    	}
-    	else {
-    		printf("Error printing results of test %d\n", (i+1));
-    	}
-    }
+    &test_number++;
 
 	return 0;
 }
@@ -199,31 +169,21 @@ char* PrintResult(const Error to_print){
  *
  */
 void* ResetVariables(
-	char *playerInput , 
-    int  *numberOfPlay , 
-    int  *height, 
 	char *arrSaveAction, 
     int  *savePlace, 
-    int  *width, 
     int  *highscores, 
     int  *restorePlace, 
-    int  *gameOut,
-	char whichPlayer, 
+    int  *gameOut, 
     int  *scoreOne, 
     int  *scoreTwo, 
     char *arrRestorePlace
 	) {
 
-	&playerInput     = '0';
-	&numberOfPlay    =  0;
-	&height          =  0;
 	&arrSaveAction   = '0';
 	&savePlace       =  0;
-	&width           =  0;
 	&highscores      =  0;
 	&restorePlace    =  0;
 	&gameOut         =  0;
-	&whichPlayer     = 'H';
 	&scoreOne        =  0;
 	&scoreTwo        =  0;
 	&arrRestorePlace = '0';
@@ -241,4 +201,16 @@ void ArrInitialization(int height, int width, char arr[100][100])
             arr[ h ][ w ] = '-';
         }
     }
+}
+
+void Undo(int *savePlace, int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *highscores, int *gameOut, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[100][100]){
+	printf("Undo function called\n");
+}
+
+void Redo(int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, int *highscores, int *savePlace, char whichPlayer, char *playerInput, char *arrRestorePlace, char arr[100][100], char *arrSaveAction){
+	printf("Redo function called\n");
+}
+
+void SaveGame(int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, char whichPlayer, int *savePlace, int *restorePlace, char arr[100][100], char *arrSaveAction, char *arrRestorePlace, char *playerInput){
+	printf("Save game function called\n");
 }
