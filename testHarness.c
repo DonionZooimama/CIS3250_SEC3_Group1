@@ -3,16 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-void* ResetVariables(
-	char arr[ 100 ][ 100 ], char *arrSaveAction, int  *savePlace, int  *highscores, int  *restorePlace, 
-	int  *gameOut, int  *scoreOne, int  *scoreTwo, char *arrRestorePlace);
-char* PrintResult(const Error to_print);
-void ArrInitialization(int height, int width, char arr[100][100]);
-//STuBzzZzZ
-void Undo(int *savePlace, int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *highscores, int *gameOut, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[100][100]);
-void Redo(int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, int *highscores, int *savePlace, char whichPlayer, char *playerInput, char *arrRestorePlace, char arr[100][100], char *arrSaveAction);
-void SaveGame(int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, char whichPlayer, int *savePlace, int *restorePlace, char arr[100][100], char *arrSaveAction, char *arrRestorePlace, char *playerInput);
-
+#include "header.h"
 
 // CHECK TO CODING CONVENTION
 
@@ -22,26 +13,19 @@ void SaveGame(int *width, int *height, int *highscores, int *numberOfPlay, int *
  * test was passed/failed, and an int to represent what test number it is.
  * Don't dynamically allocate this struct.
  */
-typedef struct error_code {
-	int  testNum;
-	bool success;
-	char location[255];
-	char message[1000];
-} Error;
-
 
 int main(int argc, char** argv){
 
-	int amtOfTests = 1;
-
+	const int TOTAL_TEST_AMOUNT = 1;
 	int cur_test_num = 0;
  
-    Error err[amtOfTests];
+    Error err[TOTAL_TEST_AMOUNT];
     
+    //TESTS
 
 
     // Print test results
-    for(int i = 0; i < amtOfTests; i++){
+    for(int i = 0; i < TOTAL_TEST_AMOUNT; i++){
     	char* res = PrintResult((const)err[i]);
     	if(res != NULL){
     		printf("%s\n", res);
@@ -51,12 +35,12 @@ int main(int argc, char** argv){
     		printf("Error printing results of test %d\n", (i+1));
     	}
     }
+
 }
 
+int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int height, int width, char whichPlayer, int savePlace, int restorePlace, 
+		   char playerInput_out, int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out, int savePlace_out, int restorePlace_out){
 
-int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int height, int width, char whichPlayer, 
-		   char playerInput_out, int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out
-		   ){
 /*
 	
 	=>	Test Variables for Player
@@ -78,9 +62,7 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
  
     char arr[ 100 ][ 100 ];
 	char arrSaveAction;
-    int  savePlace; 
     int  highscores;
-    int  restorePlace; 
     int  gameOut;
     int  scoreOne; 
     int  scoreTwo;
@@ -88,110 +70,64 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
 
 
     // TEST ONE
-    ResetVariables(&arrSaveAction, &savePlace, &highscores, &restorePlace, &gameOut, &scoreOne, &scoreTwo, &arrRestorePlace);
+    ResetVariables(&arrSaveAction, &highscores, &gameOut, &scoreOne, &scoreTwo, &arrRestorePlace);
     ArrInitialization(height, width, arr);
 
 
-    Player( &playerInput , &numberOfPlay, &height, arr, arrSaveAction, &savePlace, &width, &highscores, 
-        	            &restorePlace, &gameOut, &whichPlayer, &scoreOne, &scoreTwo, arrRestorePlace );
+    Player( &playerInput , &numberOfPlay, &height, arr, &arrSaveAction, &savePlace, &width, &highscores, 
+        	            &restorePlace, &gameOut, &whichPlayer, &scoreOne, &scoreTwo, &arrRestorePlace );
 
-    err[test_number].testNum = test_number + 1;
+    err[*test_number].testNum = *test_number + 1;
     // Check all variables for the success 
     if(
     	playerInput     == playerInput_out    &&
     	numberOfPlay    == numberOfPlay_out   &&
     	height          == height_out         &&
-		arrSaveAction   == arrSaveAction_out  &&
     	savePlace       == savePlace_out      &&
     	width           == width_out          &&
-    	highscores      == highscores_out     &&
     	restorePlace    == restorePlace_out   &&
-    	gameOut         == gameOut_out        &&
-		whichPlayer     == whichPlayer_out    &&
-    	scoreOne        == scoreOne_out       &&
-    	scoreTwo        == scoreTwo_out       &&
-    	arrRestorePlace == arrRestorePlace_out  ){
+		whichPlayer     == whichPlayer_out    ){
 
-    	err[test_number].success = true;
-    	strcpy(err[test_number].location, "");
-    	strcpy(err[test_number].message, "Test 1 passed.");
+    	err[*test_number].success = true;
+    	strcpy(err[*test_number].location, "");
+    	strcpy(err[*test_number].message, "Test 1 passed.");
     }
     else {
-    	err[test_number].success = false;
-	strcpy(err[test_number].message, "");
+    	err[*test_number].success = false;
+		strcpy(err[*test_number].message, "");
     	// Additional for handling specific errors
     	if(playerInput != playerInput_out){
-		sprintf(err[test_number].message, "Expected output: %d, actual output: %d\n", playerInput, playerInput_out);
+			sprintf(err[*test_number].message, "Expected output: %d, actual output: %d\n", playerInput, playerInput_out);
     	}
         if(numberOfPlay != numberOfPlay_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", numberOfPlay, numberOfPlay_out);
-		strcat(err[test_number].message, buffer);
+			char buffer[500] = "";
+	        sprintf(buffer, "Expected output: %d, actual output: %d\n", numberOfPlay, numberOfPlay_out);
+			strcat(err[*test_number].message, buffer);
     	}
-        if( height= height_out){
-		char buffer[500] = "";
+        if( height != height_out){
+			char buffer[500] = "";
 	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", height, height_out);
-		strcat(err[test_number].message, buffer);
-	}
-        if(arrSaveAction != arrSaveAction_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", arrSaveAction, arrSaveAction_out);
-		strcat(err[test_number].message, buffer);
-	}
+			strcat(err[*test_number].message, buffer);
+		}
         if(savePlace != savePlace_out){
-		char buffer[500] = "";
+			char buffer[500] = "";
 	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", savePlace, savePlace_out);
-		strcat(err[test_number].message, buffer);
-	}
-         if(width != width_out){
-		char buffer[500] = "";
+			strcat(err[*test_number].message, buffer);
+		}
+        if(width != width_out){
+			char buffer[500] = "";
 	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", width, width_out);
-		strcat(err[test_number].message, buffer);
-	}
-        if(highScores != highScores_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", highScores, highScores_out);
-		strcat(err[test_number].message, buffer);
-	}
-        if(restorePlace != restorePlace_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", restorePlace, restorePlace_out);
-		strcat(err[test_number].message, buffer);
-	}
-        if(gameOut != gameOut_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", gameOut, gameOut_out);
-		strcat(err[test_number].message, buffer);
-	}
+			strcat(err[*test_number].message, buffer);
+		}
         if(whichPlayer != whichPlayer_out){
-		char buffer[500] = "";
+			char buffer[500] = "";
 	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", whichPlayer, whichPlayer_out);
-		strcat(err[test_number].message, buffer);
-	}
-        if(scoreOne != scoreOne_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", scoreOne, scoreOne_out);
-		strcat(err[test_number].message, buffer);
-	}
-        if(scoreTwo != scoreTwo_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", scoreTwo, scoreTwo_out);
-		strcat(err[test_number].message, buffer);
-	}
-        if(arrRestorePlace != arrRestorePlace_out){
-		char buffer[500] = "";
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", arrRestorePlace, arrRestorePlace_out);
-		strcat(err[test_number].message, buffer);
-	}
-
-
-
-
-
-	   	
+			strcat(err[*test_number].message, buffer);
+		}
+   	
     }
 
-    &test_number++;
+    *test_number++;
 
 	return 0;
 }
@@ -231,23 +167,19 @@ char* PrintResult(const Error to_print){
  */
 void* ResetVariables(
 	char *arrSaveAction, 
-    int  *savePlace, 
     int  *highscores, 
-    int  *restorePlace, 
     int  *gameOut, 
     int  *scoreOne, 
     int  *scoreTwo, 
     char *arrRestorePlace
 	) {
 
-	&arrSaveAction   = '0';
-	&savePlace       =  0;
-	&highscores      =  0;
-	&restorePlace    =  0;
-	&gameOut         =  0;
-	&scoreOne        =  0;
-	&scoreTwo        =  0;
-	&arrRestorePlace = '0';
+	*arrSaveAction   = '0';
+	*highscores      =  0;
+	*gameOut         =  0;
+	*scoreOne        =  0;
+	*scoreTwo        =  0;
+	*arrRestorePlace = '0';
 
 	return NULL;
 }
@@ -275,3 +207,17 @@ void Redo(int *restorePlace, int *height, int *width, int *numberOfPlay, int *sc
 void SaveGame(int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, char whichPlayer, int *savePlace, int *restorePlace, char arr[100][100], char *arrSaveAction, char *arrRestorePlace, char *playerInput){
 	printf("Save game function called\n");
 }
+
+void PrintArrayValue(int *height , int *width, int *scoreOne, int *scoreTwo, char arr[100][100]){
+	printf("Print array value function called\n");
+}
+void UpdateScore(int row , int col, int *width, int *height, int *numberOfPlay, int *scoreOne, int *scoreTwo, char *playerInput, char arr[100][100]){
+	printf("Update score function called\n");
+}
+void ComputerPlayer(char arr[100][100], int *height, int *width, int *restorePlace, char *arrSaveAction, int *savePlace, int *scoreOne, int *scoreTwo, int *numberOfPlay, char *playerInput){
+	printf("Computer player function called\n");
+}
+void PlayAgain(char *playerInput , int *numberOfPlay, int *height, char arr[100][100], char *arrSaveAction, int *savePlace, int *width, int *highscores, int *restorePlace, int *gameOut, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace){
+	printf("Play again function called\n");
+}
+
