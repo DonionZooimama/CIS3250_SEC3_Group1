@@ -13,7 +13,8 @@ typedef struct error_code {
 	char message[1000];
 } Error;
 
-void Player (char *numberOfCol , int *numberOfPlay, int *height, char arr[100][100], char *arrSaveAction, int *savePlace, int *width, int *highscores, int *restorePlace, int *gameOut, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace);
+void Player (char *numberOfCol , int *numberOfPlay, int *height, char arr[100][100], char *arrSaveAction, int *savePlace, int *width, 
+	int *highscores, int *restorePlace, int *gameOut, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace);
 
 int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int height, int width, char whichPlayer, int savePlace, int restorePlace, 
 		   char playerInput_out, int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out, int savePlace_out, int restorePlace_out);
