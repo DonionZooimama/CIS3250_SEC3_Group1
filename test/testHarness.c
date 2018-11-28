@@ -16,7 +16,7 @@
 
 int main(int argc, char** argv){
 
-	const int TOTAL_TEST_AMOUNT = 8;
+	const int TOTAL_TEST_AMOUNT = 12;
 	int cur_test_num = 0;
  
     Error err[TOTAL_TEST_AMOUNT];
@@ -59,6 +59,12 @@ int main(int argc, char** argv){
 	//tests if(playerInput[0] != ‘S’
 	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0);
 
+
+    // Ajai and Daniel
+    driver(err, &cur_test_num , '1', 5, 5, 5, 'H', 5, 0, '1', 6, 999, 999, 'H', 6, 0); /*this one calls PlayAgain*/
+    driver(err, &cur_test_num , '1', 2, 5, 5, 'H', 0, 999, '1', 3, 5, 5, 'H', 1, 999);
+    driver(err, &cur_test_num , '1', 1, 5, 5, 'H', 0, 999, '1', 2, 5, 5, 'H', 1, 999);
+    driver(err, &cur_test_num , '1', 1, 5, 5, 'C', 0, 999, '1', 2, 5, 5, 'C', 1, 999);
 
     // Print test results
     for(int i = 0; i < TOTAL_TEST_AMOUNT; i++){
@@ -104,7 +110,7 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
     int  scoreTwo;
     char arrRestorePlace;
 
-    printf("Running test %d:\n", (*test_number+1));
+    printf("Running test %d.\n", (*test_number+1));
 
     // TEST ONE
     ResetVariables(&arrSaveAction, &highscores, &gameOut, &scoreOne, &scoreTwo, &arrRestorePlace);
@@ -125,51 +131,97 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
     	restorePlace    == restorePlace_out   &&
 		whichPlayer     == whichPlayer_out    ){
 
-    	err[*test_number].success = true;
-    	strcpy(err[*test_number].location, "");
+        if(restorePlace == 999 && restorePlace_out == 999){
+            if(numberOfPlay % 2 != 0){
+                if(arr[4][0] == 'X'){
+                    //pass
+                    err[*test_number].success = true;
+                    strcpy(err[*test_number].location, "");
 
-    	char* buffer = malloc(sizeof(char) * 50);
-        sprintf(buffer, "Test %d passed.\n", (*test_number+1));
-		strcpy(err[*test_number].message, buffer);
-		free(buffer);
+                    char* buffer = malloc(sizeof(char) * 50);
+                    sprintf(buffer, "Test %d passed.", (*test_number+1));
+                    strcpy(err[*test_number].message, buffer);
+                    free(buffer);
+                }
+                else {
+                    //fail
+                    err[*test_number].success = false;
+                    sprintf(err[*test_number].message, "[Expected output (arr[4][0]): 'X', actual output: '%c']", arr[4][0]);
+                }
+            }
+            else {
+                if(arr[4][0] == 'O'){
+                    //pass
+                    err[*test_number].success = true;
+                    strcpy(err[*test_number].location, "");
+
+                    char* buffer = malloc(sizeof(char) * 50);
+                    sprintf(buffer, "Test %d passed.", (*test_number+1));
+                    strcpy(err[*test_number].message, buffer);
+                    free(buffer);
+                }
+                else {
+                    //fail
+                    err[*test_number].success = false;
+                    sprintf(err[*test_number].message, "[Expected output (arr[4][0]): 'O', actual output: '%c']", arr[4][0]);
+                }
+            }
+        }
+        else {
+            err[*test_number].success = true;
+            strcpy(err[*test_number].location, "");
+
+            char* buffer = malloc(sizeof(char) * 50);
+            sprintf(buffer, "Test %d passed.", (*test_number+1));
+            strcpy(err[*test_number].message, buffer);
+            free(buffer);
+        }
     }
     else {
     	err[*test_number].success = false;
 		strcpy(err[*test_number].message, "");
     	// Additional for handling specific errors
     	if(playerInput != playerInput_out){
-			sprintf(err[*test_number].message, "Expected output: %d, actual output: %d", playerInput, playerInput_out);
+			sprintf(err[*test_number].message, "[Expected output (playerInput): %d, actual output (playerInput_out): %d] ", playerInput_out, playerInput);
     	}
         if(numberOfPlay != numberOfPlay_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	        sprintf(buffer, "Expected output: %d, actual output: %d", numberOfPlay, numberOfPlay_out);
+	        sprintf(buffer, "[Expected output (numberOfPlay): %d, actual output (numberOfPlay_out): %d] ", numberOfPlay_out, numberOfPlay);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
     	}
         if( height != height_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "Expected output: %d, actual output: %d", height, height_out);
+	       	sprintf(buffer, "[Expected output (height): %d, actual output (height_out): %d] ", height_out, height);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
         if(savePlace != savePlace_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "Expected output: %d, actual output: %d", savePlace, savePlace_out);
+	       	sprintf(buffer, "[Expected output (savePlace): %d, actual output (savePlace_out): %d] ", savePlace_out, savePlace);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
         if(width != width_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "Expected output: %d, actual output: %d", width, width_out);
+	       	sprintf(buffer, "[Expected output (width): %d, actual output (width_out): %d] ", width_out, width);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
         if(whichPlayer != whichPlayer_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "Expected output: %d, actual output: %d\n", whichPlayer, whichPlayer_out);
+	       	sprintf(buffer, "[Expected output (whichPlayer): %d, actual output (whichPlayer_out): %d] ", whichPlayer_out, whichPlayer);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
+        /*
+        if(restorePlace != restorePlace_out){
+            char* buffer = malloc(sizeof(char) * 200);
+            sprintf(buffer, "[Expected output (restorePlace): %d, actual output (restorePlace_out): %d] ", restorePlace_out, restorePlace);
+            strcat(err[*test_number].message, buffer);
+            free(buffer);
+        }
+        */
    	
     }
 
@@ -201,11 +253,6 @@ char* PrintResult(const Error to_print){
 
 		strcpy(ret, "[FAIL]: ");
 		strcat(ret, to_print.message);
-
-        if(strcmp(to_print.location, "") != 0){
-            strcat(ret, " at ");
-            strcat(ret, to_print.location);
-        }
 		
 	}
 
@@ -486,7 +533,6 @@ void ComputerPlayer(char arr[100][100], int *height, int *width, int *restorePla
     }
 }
 void PlayAgain(char *playerInput , int *numberOfPlay, int *height, char arr[100][100], char *arrSaveAction, int *savePlace, int *width, int *highscores, int *restorePlace, int *gameOut, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace){
-	*height = 999;
-    *width  = 999;
+	return;
 }
 
