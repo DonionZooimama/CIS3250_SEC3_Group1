@@ -59,6 +59,7 @@ int main(int argc, char** argv){
 	//tests if(playerInput[0] != ‘S’
 	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0);
 
+
     // Print test results
     for(int i = 0; i < TOTAL_TEST_AMOUNT; i++){
     	char* res = PrintResult((const Error)err[i]);
@@ -200,8 +201,12 @@ char* PrintResult(const Error to_print){
 
 		strcpy(ret, "[FAIL]: ");
 		strcat(ret, to_print.message);
-		strcat(ret, " at ");
-		strcat(ret, to_print.location);
+
+        if(strcmp(to_print.location, "") != 0){
+            strcat(ret, " at ");
+            strcat(ret, to_print.location);
+        }
+		
 	}
 
 	return ret;
@@ -240,6 +245,27 @@ void ArrInitialization(int height, int width, char arr[100][100])
         }
     }
 }
+
+void fillArrCol(int height, int width, char arr[100][100], int col_num){
+    if(col_num >= width){
+        printf("Invalid column to fill in fillArrCol()\n");
+        return;
+    }
+    else {
+        for(int i = 0; i < height; i++){
+            if(i % 2 == 0){
+                arr[i][col_num] = 'X';
+            }
+            else {
+                arr[i][col_num] = 'O';
+            }
+            
+        }
+    }
+}
+
+// MODIFIED STUBS TO REMOVE PLAYER INPUT
+// necessary in order to automate tests.
 
 void Undo(int *savePlace, int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *highscores, int *gameOut, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[100][100]){
 	
@@ -306,19 +332,161 @@ void Redo(int *restorePlace, int *height, int *width, int *numberOfPlay, int *sc
 }
 
 void SaveGame(int *width, int *height, int *highscores, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, char whichPlayer, int *savePlace, int *restorePlace, char arr[100][100], char *arrSaveAction, char *arrRestorePlace, char *playerInput){
-	printf("Save game function called\n");
+	return;
 }
 
 void PrintArrayValue(int *height , int *width, int *scoreOne, int *scoreTwo, char arr[100][100]){
-	printf("Print array value function called\n");
+	return;
 }
 void UpdateScore(int row , int col, int *width, int *height, int *numberOfPlay, int *scoreOne, int *scoreTwo, char *playerInput, char arr[100][100]){
-	printf("Update score function called\n");
+	int score = 0;
+
+    if(col+3 <= *width && arr[row][col] == arr[row][col+1] && arr[row][col] ==
+            arr[row][col+2] && arr[row][col] == arr[row][col+3] )
+    {
+        score++;
+    }
+
+    if (col-3 >= 0 && arr[row][col] == arr[row][col-1] && arr[row][col] ==
+            arr[row][col-2] && arr[row][col] == arr[row][col-3] )
+    {
+        score++;
+    }
+
+    if ( col - 1 >= 0 && col + 2 <= *width && arr[row][col] == arr[row][col-1] &&
+            arr[row][col] == arr[row][col+1] && arr[row][col] == arr[row][col+2] )
+    {
+        score++;
+    }
+
+    if (col - 2 >= 0 && col + 1 <= *width && arr[row][col] == arr[row][col-1] &&
+            arr[row][col] == arr[row][col-2] && arr[row][col] == arr[row][col+1] )
+    {
+        score++;
+    }
+
+    if(row - 3 >= 0 && arr[row][col] == arr[row-1][col] && arr[row][col] ==
+            arr[row-2][col]&& arr[row][col] == arr[row-3][col] )
+    {
+        score++;
+    }
+
+    if (row + 3 <= *height && arr[row][col] == arr[row+1][col] && arr[row][col] ==
+            arr[row+2][col] && arr[row][col] == arr[row+3][col] )
+    {
+        score++;
+    }
+
+    if (row - 3 >= 0 && col+3 <= *width && arr[row][col] == arr[row-1][col+1] &&
+            arr[row][col] == arr[row-2][col+2] && arr[row][col] == arr[row-3][col+3] )
+    {
+        score++;
+    }
+    if (row + 3 <= *height && col+3 <= *width && arr[row][col] == arr[row+1][col+1]
+            && arr[row][col] == arr[row+2][col+2] && arr[row][col] == arr[row+3][col+3])
+    {
+        score++;
+    }
+    if (col + 1 <= *width && row - 1 >= 0 && col - 2 >=0 && row + 2 <= *height &&
+            arr[row][col] == arr[row-1][col+1] && arr[row][col] == arr[row+1][col-1] &&
+            arr[row][col] == arr[row+2][col-2])
+    {
+        score++;
+    }
+    if(col + 2 <= *width && row - 2 >= 0 && col - 1 >= 0 && row + 1 <= *height &&
+            arr[row][col] == arr[row-1][col+1] && arr[row][col] == arr[row-2][col+2] &&
+            arr[row][col] == arr[row+1][col-1])
+    {
+        score++;
+    }
+    if (col - 3 >= 0 && row - 3 >= 0 && arr[row][col] == arr[row-1][col-1] &&
+            arr[row][col] == arr[row-2][col-2] && arr[row][col] == arr[row-3][col-3] )
+    {
+        score++;
+    }
+    if (col - 3 >= 0 && row + 3 <= *height && arr[row][col] == arr[row+1][col-1]
+            && arr[row][col] == arr[row+2][col-2] && arr[row][col] == arr[row+3][col-3])
+    {
+        score++;
+    }
+    if (col + 1 <= *width && row + 1 <= *height && col - 2 >=0 && row - 2 >= 0 &&
+            arr[row][col] == arr[row-1][col-1] && arr[row][col] == arr[row-2][col-2] &&
+            arr[row][col] == arr[row+1][col+1])
+    {
+        score++;
+    }
+    if (col + 2 <= *width && row + 2 <= *height && col - 1 >= 0 && row - 1 >= 0 &&
+            arr[row][col] == arr[row-1][col-1] && arr[row][col] == arr[row+1][col+1] &&
+            arr[row][col] == arr[row+2][col+2])
+    {
+        score++;
+    }
+    if (*numberOfPlay % 2 != 0)
+    {
+        if (playerInput[0] == 'U')
+        {
+            *scoreOne -= score;
+        }
+        else
+        {
+            *scoreOne += score;
+        }
+    }
+    else
+    {
+        if (playerInput[0] == 'U')
+        {
+            *scoreTwo -= score;
+        }
+        else
+        {
+            *scoreTwo += score;
+        }
+    }
 }
 void ComputerPlayer(char arr[100][100], int *height, int *width, int *restorePlace, char *arrSaveAction, int *savePlace, int *scoreOne, int *scoreTwo, int *numberOfPlay, char *playerInput){
-	printf("Computer player function called\n");
+	int row = 0;
+    int randomPlay = 0;
+    int flag = 0;
+    
+    //checks if flag is equal to 0
+    while ( flag == 0 )
+    {
+        //creates a random play
+        randomPlay = rand() % ( *width );
+        
+        //loops from 0 to the height of the board
+        for( row = 0 ; row < *height && flag == 0; row++ )
+        {
+            
+            //If the board position has a piece already, then do nothing
+            if( arr[ *height - row - 1 ][ randomPlay ] == 'X'
+               || arr[ *height - row - 1 ][ randomPlay ] == 'O' )
+            {
+                
+            }
+            
+            //otherwise, the board space is populated with an '0', In other words, the computer places a piece
+            else
+            {
+                if ( row < *height )
+                {
+                    *restorePlace = 0;
+                    //Sets the board location to 'O'
+                    arr[ *height - row - 1 ][ randomPlay ] = 'O';
+                    arrSaveAction[ *savePlace ] = ( randomPlay );
+                    *savePlace += 1; //savePlave is incremented
+                    UpdateScore( *height - row - 1 , randomPlay, width, height, numberOfPlay, scoreOne, scoreTwo, playerInput, arr ); //Score is updated
+
+                    PrintArrayValue( height, width, scoreOne, scoreTwo, arr );
+                    flag = 1;
+                }
+            }
+        }
+    }
 }
 void PlayAgain(char *playerInput , int *numberOfPlay, int *height, char arr[100][100], char *arrSaveAction, int *savePlace, int *width, int *highscores, int *restorePlace, int *gameOut, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace){
-	printf("Play again function called\n");
+	*height = 999;
+    *width  = 999;
 }
 

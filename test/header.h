@@ -22,6 +22,7 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
 void* ResetVariables(char *arrSaveAction, int  *highscores, int *gameOut, int *scoreOne, int  *scoreTwo, char *arrRestorePlace);
 char* PrintResult(const Error to_print);
 void ArrInitialization(int height, int width, char arr[100][100]);
+void fillArrCol(int height, int width, char arr[100][100], int col_num);
 //STuBzzZzZ
 void Undo(int *savePlace, int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *highscores, int *gameOut, char whichPlayer, char *arrSaveAction, char *arrRestorePlace, char *playerInput, char arr[100][100]);
 void Redo(int *restorePlace, int *height, int *width, int *numberOfPlay, int *scoreOne, int *scoreTwo, int *gameOut, int *highscores, int *savePlace, char whichPlayer, char *playerInput, char *arrRestorePlace, char arr[100][100], char *arrSaveAction);
