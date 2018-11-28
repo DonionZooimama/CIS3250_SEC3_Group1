@@ -5,68 +5,77 @@
 
 #include "header.h"
 
-// CHECK TO CODING CONVENTION
 
-/* Struct to represent the output of a test. For simplicity's sake it is
- * just two strings to represent the location of the failure, and the 
- * message attached to the failure. Also a boolean to indicate if the
- * test was passed/failed, and an int to represent what test number it is.
- * Don't dynamically allocate this struct.
+/* 
+ * Test Harness
+ * 
+ * Created by:
+ * Jordan Evans: 0964044
+ * Derek Bowman: 0993439
+ *
+ * - Test cases are placed in the main method as function calls to the test harness (named driver).
+ * - Output is printed after all test cases have run.
+ * - Test data is stored in a struct containing the test number, a message with the 
+ *   variables that were off, and whether the test passed or failed.
+ * - When wanting to test board positions, pre set an array and pass it in, otherwise
+ *   input arr as NULL.
+ * - At the bottom of the file are  stubs written for the fuctions called by Player
  */
 
 int main(int argc, char** argv){
-
-	const int TOTAL_TEST_AMOUNT = 12;
-	int cur_test_num = 0;
+ 
+    //Number of total tests to run
+    const int TOTAL_TEST_AMOUNT = 12;
+    int cur_test_num = 0;
  
     Error err[TOTAL_TEST_AMOUNT];
-    
-    //TESTS
-    /*
-	Test Cases – Data flow group
-	tests if(convert == 0)
-	driver(err, testNo , “Y”, 0, 5, 5, “P”, 0, 0,“Y”, 0, 5, 5, “P”, 0, 0);
-	tests else
-	driver(err, testNo , “1”, 0, 5, 5, “P”, 0, 0,“1”, 0, 5, 5, “P”, 0, 0);
-	tests if(playerInput[0] == ‘U’)
-	driver(err, testNo, “U”, 0, 5, 5, “P”, 1, 0, “U”, 0, 5 ,5 “P”, 0, 1);
-	tests if(playerInput[0] != ‘U’)
-	driver(err, testNo , “f”, 0, 5, 5, “P”, 0, 0,“f”, 0, 5, 5, “P”, 0, 0);
-	tests if(playerInput[0] == ‘R’)
-	driver(err, testNo, “R”, 0, 5, 5, “P”, 0, 1, “R”, 0, 5 ,5 “P”, 1, 0);
-	tests if(playerInput[0] != ‘R’ )
-	driver(err, testNo , “f”, 0, 5, 5, “P”, 0, 0,“f”, 0, 5, 5, “P”, 0, 0);
-	tests if(playerInput[0] == ‘S’)
-	driver(err, testNo, “S”, 0, 5, 5, “P”, 0, 0, “S”, 0, 5 ,5 “P”, 0, 0);
-	tests if(playerInput[0] != ‘S’
-	driver(err, testNo , “f”, 0, 5, 5, “P”, 0, 0,“f”, 0, 5, 5, “P”, 0, 0);
-    */
 
-    //tests if(convert == 0)
-	driver(err, &cur_test_num , 'Y', 0, 5, 5, 'P', 0, 0, 'Y', 0, 5, 5, 'P', 0, 0);
+ 
+    char arr[ 100 ][ 100 ];   // basic empty array
+    ArrInitialization(5, 5, arr);
+
+
+    //TEST SET ONE
+
+        //tests if(convert == 0)
+	driver(err, &cur_test_num , 'Y', 0, 5, 5, 'P', 0, 0, 'Y', 0, 5, 5, 'P', 0, 0, NULL);
 	//tests else
-	driver(err, &cur_test_num , '1', 0, 5, 5, 'P', 0, 0, '1', 0, 5, 5, 'P', 0, 0);
+	driver(err, &cur_test_num , '1', 0, 5, 5, 'P', 0, 0, '1', 0, 5, 5, 'P', 0, 0, NULL);
 	//tests if(playerInput[0] == ‘U’)
-	driver(err, &cur_test_num , 'U', 0, 5, 5, 'P', 1, 0, 'U', 0, 5, 5, 'P', 0, 1);
+	driver(err, &cur_test_num , 'U', 0, 5, 5, 'P', 1, 0, 'U', 0, 5, 5, 'P', 0, 1, NULL);
 	//tests if(playerInput[0] != ‘U’)
-	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0);
+	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0, NULL);
 	//tests if(playerInput[0] == ‘R’)
-	driver(err, &cur_test_num , 'R', 0, 5, 5, 'P', 0, 1, 'R', 0, 5, 5, 'P', 1, 0);
+	driver(err, &cur_test_num , 'R', 0, 5, 5, 'P', 0, 1, 'R', 0, 5, 5, 'P', 1, 0, NULL);
 	//tests if(playerInput[0] != ‘R’ )
-	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0);
+	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0, NULL);
 	//tests if(playerInput[0] == ‘S’)
-	driver(err, &cur_test_num , 'S', 0, 5, 5, 'P', 0, 0, 'S', 0, 5, 5, 'P', 0, 0);
+	driver(err, &cur_test_num , 'S', 0, 5, 5, 'P', 0, 0, 'S', 0, 5, 5, 'P', 0, 0, NULL);
 	//tests if(playerInput[0] != ‘S’
-	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0);
+	driver(err, &cur_test_num , 'f', 0, 5, 5, 'P', 0, 0, 'f', 0, 5, 5, 'P', 0, 0, NULL);
 
 
-    // Ajai and Daniel
-    driver(err, &cur_test_num , '1', 5, 5, 5, 'H', 5, 0, '1', 5, 999, 999, 'H', 6, 0); /*this one calls PlayAgain*/
-    driver(err, &cur_test_num , '1', 2, 5, 5, 'H', 0, 999, '1', 2, 5, 5, 'H', 1, 999);
-    driver(err, &cur_test_num , '1', 1, 5, 5, 'H', 0, 999, '1', 1, 5, 5, 'H', 1, 999);
-    driver(err, &cur_test_num , '1', 1, 5, 5, 'C', 0, 999, '1', 1, 5, 5, 'C', 1, 999);
 
-    // Print test results
+    //TEST SET TWO
+
+    ArrInitialization(5, 5, arr);
+    arr[0][0] = 'O';
+    arr[1][0] = 'X';
+    arr[2][0] = 'O';
+    arr[3][0] = 'X';
+    arr[4][0] = 'O';
+    driver(err, &cur_test_num , '1', 5, 5, 5, 'H', 5, 0, '1', 5, 5, 5, 'H', 5, 0, arr); /*this one calls PlayAgain*/
+    ArrInitialization(5, 5, arr);
+
+    driver(err, &cur_test_num , '1', 2, 5, 5, 'H', 0, 0, '1', 2, 5, 5, 'H', 1, 0, arr);
+    ArrInitialization(5, 5, arr);
+    driver(err, &cur_test_num , '1', 1, 5, 5, 'H', 0, 0, '1', 1, 5, 5, 'H', 1, 0, arr);
+    ArrInitialization(5, 5, arr);
+    driver(err, &cur_test_num , '1', 1, 5, 5, 'C', 0, 0, '1', 1, 5, 5, 'C', 1, 0, arr);
+
+
+
+    // After all tests have run,  print test results
     for(int i = 0; i < TOTAL_TEST_AMOUNT; i++){
     	char* res = PrintResult((const Error)err[i]);
     	if(res != NULL){
@@ -80,58 +89,62 @@ int main(int argc, char** argv){
 
 }
 
-int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int height, int width, char whichPlayer, int savePlace, int restorePlace, 
-		   char playerInput_out, int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out, int savePlace_out, int restorePlace_out){
 
-/*
+
+//TEST DRIVER FUNCTION
+int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int height, int width, 
+		char whichPlayer, int savePlace, int restorePlace, char playerInput_out, 
+		int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out, 
+		int savePlace_out, int restorePlace_out, char arr[100][100]){
+
+
 	
-	=>	Test Variables for Player
-	char *playerInput , 	=> Affects logic path
+/*	=>	Test Variables for Player
+
+    char *playerInput , 	=> Affects logic path
     int  *numberOfPlay , 	=> Affects logic path
-    int  *height, 			=> Affects logic path
+    int  *height, 		=> Affects logic path
     char arr[ 100 ][ 100 ],	=> Affects logic path
-	char *arrSaveAction, 	=> Default: '0'
+    char *arrSaveAction, 	=> Default: '0'
     int  *savePlace, 		=> Default:  0
-    int  *width, 			=> Affects logic path
+    int  *width, 		=> Affects logic path
     int  *highscores, 		=> Default:  0
     int  *restorePlace, 	=> Default:  0
-    int  *gameOut,			=> Default:  0
-	char whichPlayer, 		=> Affects logic path
+    int  *gameOut,		=> Default:  0
+    char whichPlayer, 		=> Affects logic path
     int  *scoreOne, 		=> Default:  0
     int  *scoreTwo, 		=> Default:  0
     char *arrRestorePlace	=> Default: '0'
 */
  
-    char arr[ 100 ][ 100 ];
-	char arrSaveAction;
+    char arrSaveAction;
     int  highscores;
     int  gameOut;
     int  scoreOne; 
     int  scoreTwo;
     char arrRestorePlace;
 
+    int checkBoard = 0;
+    if (arr == NULL){
+         char arr2[100][100];
+	 arr = arr2;
+         ArrInitialization(height, width, arr);
+         checkBoard = 1;
+    }
     printf("Running test %d.\n", (*test_number+1));
 
-    // TEST ONE
+    err[*test_number].testNum = *test_number + 1;
+
+    // REST VARIABLES PRIOR TO TEST
     ResetVariables(&arrSaveAction, &highscores, &gameOut, &scoreOne, &scoreTwo, &arrRestorePlace);
-    ArrInitialization(height, width, arr);
 
-    bool test_switch = false;
-    if(restorePlace_out == 999){
-        test_switch = true;
-        restorePlace_out = 0;
-    }
 
-    if(height_out == 999 && width_out == 999){
-        fillArrCol(height, width, arr, 0);
-        height_out = height;
-        width_out = width;
-    }
-
+    //Call function being tested
     Player( &playerInput , &numberOfPlay, &height, arr, &arrSaveAction, &savePlace, &width, &highscores, 
         	            &restorePlace, &gameOut, whichPlayer, &scoreOne, &scoreTwo, &arrRestorePlace );
 
-    err[*test_number].testNum = *test_number + 1;
+
+
     // Check all variables for the success 
     if(
     	playerInput     == playerInput_out    &&
@@ -140,9 +153,10 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
     	savePlace       == savePlace_out      &&
     	width           == width_out          &&
     	restorePlace    == restorePlace_out   &&
-		whichPlayer     == whichPlayer_out    ){
+	whichPlayer     == whichPlayer_out    ){
 
-        if(test_switch){
+        //If test variable test PASSED, check to see if test should include board position testing
+        if(checkBoard == 0){
             if(numberOfPlay % 2 != 0){
                 if(arr[4][0] == 'X'){
                     //pass
@@ -178,6 +192,8 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
                 }
             }
         }
+
+	//Update message that test passed. (for non-boardposition tests)
         else {
             err[*test_number].success = true;
             strcpy(err[*test_number].location, "");
@@ -188,6 +204,8 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
             free(buffer);
         }
     }
+
+    //For FAILED tests, update the message to show all variables that were off.
     else {
     	err[*test_number].success = false;
 		strcpy(err[*test_number].message, "");
@@ -231,8 +249,6 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
             strcat(err[*test_number].message, buffer);
             free(buffer);
         }
-        
-   	
     }
 
     *test_number = *test_number + 1;
@@ -303,23 +319,6 @@ void ArrInitialization(int height, int width, char arr[100][100])
     }
 }
 
-void fillArrCol(int height, int width, char arr[100][100], int col_num){
-    if(col_num >= width){
-        printf("Invalid column to fill in fillArrCol()\n");
-        return;
-    }
-    else {
-        for(int i = 0; i < height; i++){
-            if(i % 2 == 0){
-                arr[i][col_num] = 'X';
-            }
-            else {
-                arr[i][col_num] = 'O';
-            }
-            
-        }
-    }
-}
 
 // MODIFIED STUBS TO REMOVE PLAYER INPUT
 // necessary in order to automate tests.

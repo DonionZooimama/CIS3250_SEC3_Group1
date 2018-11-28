@@ -17,7 +17,7 @@ void Player (char *numberOfCol , int *numberOfPlay, int *height, char arr[100][1
 	int *highscores, int *restorePlace, int *gameOut, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace);
 
 int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int height, int width, char whichPlayer, int savePlace, int restorePlace, 
-		   char playerInput_out, int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out, int savePlace_out, int restorePlace_out);
+		   char playerInput_out, int numberOfPlay_out, int height_out, int width_out, char whichPlayer_out, int savePlace_out, int restorePlace_out, char arr[100][100]);
 
 void* ResetVariables(char *arrSaveAction, int  *highscores, int *gameOut, int *scoreOne, int  *scoreTwo, char *arrRestorePlace);
 char* PrintResult(const Error to_print);
