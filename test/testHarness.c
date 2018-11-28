@@ -61,10 +61,10 @@ int main(int argc, char** argv){
 
 
     // Ajai and Daniel
-    driver(err, &cur_test_num , '1', 5, 5, 5, 'H', 5, 0, '1', 6, 999, 999, 'H', 6, 0); /*this one calls PlayAgain*/
-    driver(err, &cur_test_num , '1', 2, 5, 5, 'H', 0, 999, '1', 3, 5, 5, 'H', 1, 999);
-    driver(err, &cur_test_num , '1', 1, 5, 5, 'H', 0, 999, '1', 2, 5, 5, 'H', 1, 999);
-    driver(err, &cur_test_num , '1', 1, 5, 5, 'C', 0, 999, '1', 2, 5, 5, 'C', 1, 999);
+    driver(err, &cur_test_num , '1', 5, 5, 5, 'H', 5, 0, '1', 5, 999, 999, 'H', 6, 0); /*this one calls PlayAgain*/
+    driver(err, &cur_test_num , '1', 2, 5, 5, 'H', 0, 999, '1', 2, 5, 5, 'H', 1, 999);
+    driver(err, &cur_test_num , '1', 1, 5, 5, 'H', 0, 999, '1', 1, 5, 5, 'H', 1, 999);
+    driver(err, &cur_test_num , '1', 1, 5, 5, 'C', 0, 999, '1', 1, 5, 5, 'C', 1, 999);
 
     // Print test results
     for(int i = 0; i < TOTAL_TEST_AMOUNT; i++){
@@ -116,6 +116,17 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
     ResetVariables(&arrSaveAction, &highscores, &gameOut, &scoreOne, &scoreTwo, &arrRestorePlace);
     ArrInitialization(height, width, arr);
 
+    bool test_switch = false;
+    if(restorePlace_out == 999){
+        test_switch = true;
+        restorePlace_out = 0;
+    }
+
+    if(height_out == 999 && width_out == 999){
+        fillArrCol(height, width, arr, 0);
+        height_out = height;
+        width_out = width;
+    }
 
     Player( &playerInput , &numberOfPlay, &height, arr, &arrSaveAction, &savePlace, &width, &highscores, 
         	            &restorePlace, &gameOut, whichPlayer, &scoreOne, &scoreTwo, &arrRestorePlace );
@@ -131,7 +142,7 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
     	restorePlace    == restorePlace_out   &&
 		whichPlayer     == whichPlayer_out    ){
 
-        if(restorePlace == 999 && restorePlace_out == 999){
+        if(test_switch){
             if(numberOfPlay % 2 != 0){
                 if(arr[4][0] == 'X'){
                     //pass
@@ -182,46 +193,45 @@ int driver(Error* err, int* test_number, char playerInput, int numberOfPlay, int
 		strcpy(err[*test_number].message, "");
     	// Additional for handling specific errors
     	if(playerInput != playerInput_out){
-			sprintf(err[*test_number].message, "[Expected output (playerInput): %d, actual output (playerInput_out): %d] ", playerInput_out, playerInput);
+			sprintf(err[*test_number].message, "[Expected output (playerInput_out): %d, actual output (playerInput): %d] ", playerInput_out, playerInput);
     	}
         if(numberOfPlay != numberOfPlay_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	        sprintf(buffer, "[Expected output (numberOfPlay): %d, actual output (numberOfPlay_out): %d] ", numberOfPlay_out, numberOfPlay);
+	        sprintf(buffer, "[Expected output (numberOfPlay_out): %d, actual output (numberOfPlay): %d] ", numberOfPlay_out, numberOfPlay);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
     	}
         if( height != height_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "[Expected output (height): %d, actual output (height_out): %d] ", height_out, height);
+	       	sprintf(buffer, "[Expected output (height_out): %d, actual output (height): %d] ", height_out, height);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
         if(savePlace != savePlace_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "[Expected output (savePlace): %d, actual output (savePlace_out): %d] ", savePlace_out, savePlace);
+	       	sprintf(buffer, "[Expected output (savePlace_out): %d, actual output (savePlace): %d] ", savePlace_out, savePlace);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
         if(width != width_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "[Expected output (width): %d, actual output (width_out): %d] ", width_out, width);
+	       	sprintf(buffer, "[Expected output (width_out): %d, actual output (width): %d] ", width_out, width);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
         if(whichPlayer != whichPlayer_out){
 			char* buffer = malloc(sizeof(char) * 200);
-	       	sprintf(buffer, "[Expected output (whichPlayer): %d, actual output (whichPlayer_out): %d] ", whichPlayer_out, whichPlayer);
+	       	sprintf(buffer, "[Expected output (whichPlayer_out): %d, actual output (whichPlayer): %d] ", whichPlayer_out, whichPlayer);
 			strcat(err[*test_number].message, buffer);
 			free(buffer);
 		}
-        /*
         if(restorePlace != restorePlace_out){
             char* buffer = malloc(sizeof(char) * 200);
             sprintf(buffer, "[Expected output (restorePlace): %d, actual output (restorePlace_out): %d] ", restorePlace_out, restorePlace);
             strcat(err[*test_number].message, buffer);
             free(buffer);
         }
-        */
+        
    	
     }
 
@@ -533,6 +543,6 @@ void ComputerPlayer(char arr[100][100], int *height, int *width, int *restorePla
     }
 }
 void PlayAgain(char *playerInput , int *numberOfPlay, int *height, char arr[100][100], char *arrSaveAction, int *savePlace, int *width, int *highscores, int *restorePlace, int *gameOut, char whichPlayer, int *scoreOne, int *scoreTwo, char *arrRestorePlace){
-	return;
+
 }
 
