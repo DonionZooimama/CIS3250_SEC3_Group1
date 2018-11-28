@@ -18,8 +18,16 @@ Program Functionality: The program loads XML file representing the size of the b
 prompts for user input on the game type. From then on, the players enter which place they
 want to place their piece, and the computer places a random piece.
 
-How to run the program: run make clean, then run make All, then run make main, run the file
-with ./bin/main
+How to run the program: 
+- run make clean
+- run make All
+- run make main
+- run the file with ./bin/main
+
+How to compile and run the testHarness:
+- from the root directory, 'cd test'
+- 'make'
+- ./runTests
 
 Files contained in Submission:
 src
